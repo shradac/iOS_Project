@@ -24,6 +24,9 @@ class ChatsViewController: UIViewController {
           
         getAllChats()
         
+        print("CHATS ON LOAD")
+        print(chats)
+        
         setupTableView()
         notesView.tableViewNote.dataSource = self
         
