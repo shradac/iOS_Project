@@ -1,0 +1,6 @@
+framework module Pods_iOS_Team7 {
+  umbrella header "Pods-iOS_Team7-umbrella.h"
+
+  export *
+  module * { export * }
+}
