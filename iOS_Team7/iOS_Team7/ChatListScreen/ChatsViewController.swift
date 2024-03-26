@@ -105,6 +105,8 @@ extension ChatsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChatsTableViewCell.identifier, for: indexPath) as! ChatsTableViewCell
         let chat = chats[indexPath.row] // Get the chat group for the current row
         cell.configure(with: chat, at: indexPath) // Configure the cell with the chat group
+        print("Chat :: ")
+        print(chat)
         return cell
     }
 }
