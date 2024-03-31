@@ -72,12 +72,12 @@
 		1590746B2BAE29CB00F5E81E /* iOS_Team7UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Team7UITests.swift; sourceTree = "<group>"; };
 		1590746D2BAE29CB00F5E81E /* iOS_Team7UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Team7UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4499067E2BB2297B00258327 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4499068B2BB22B6500258327 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = "../../../../../WA7 2/ContactAppA4/FirstScreen/LoginView.swift"; sourceTree = "<group>"; };
-		4499068D2BB22B9B00258327 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "../../../../../WA7 2/ContactAppA4/FirstScreen/ViewController.swift"; sourceTree = "<group>"; };
-		4499068F2BB22BBF00258327 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterView.swift; path = "../../../../../WA7 2/ContactAppA4/RegisterScreen/RegisterView.swift"; sourceTree = "<group>"; };
-		449906912BB22BC400258327 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = "../../../../../WA7 2/ContactAppA4/RegisterScreen/RegisterViewController.swift"; sourceTree = "<group>"; };
-		449906942BB22C3400258327 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = "../../../../../WA7 2/ContactAppA4/ProfileScreen/ProfileView.swift"; sourceTree = "<group>"; };
-		449906962BB22C3A00258327 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = "../../../../../WA7 2/ContactAppA4/ProfileScreen/ProfileViewController.swift"; sourceTree = "<group>"; };
+		4499068B2BB22B6500258327 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4499068D2BB22B9B00258327 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = /Users/nitinbhat/Desktop/WA_8_CHATAPP/iOS_Project/iOS_Team7/iOS_Team7/Login/ViewController.swift; sourceTree = "<absolute>"; };
+		4499068F2BB22BBF00258327 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		449906912BB22BC400258327 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		449906942BB22C3400258327 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		449906962BB22C3A00258327 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = /Users/nitinbhat/Desktop/WA_8_CHATAPP/iOS_Project/iOS_Team7/iOS_Team7/Profile/ProfileViewController.swift; sourceTree = "<absolute>"; };
 		449906A12BB22E4200258327 /* ContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
 		449906A22BB22E4200258327 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		449906A72BB22E5100258327 /* tokenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tokenManager.swift; sourceTree = "<group>"; };
@@ -226,8 +226,8 @@
 				449906F62BB3442E00258327 /* ChatPanel.swift */,
 			);
 			name = "Data Models";
-			path = "../../../../WA7 2/ContactAppA4/Data Models";
-			sourceTree = "<group>";
+			path = "iOS_Team7/Data Models";
+			sourceTree = SOURCE_ROOT;
 		};
 		449906A62BB22E5100258327 /* Utils */ = {
 			isa = PBXGroup;
@@ -236,8 +236,7 @@
 				449906A82BB22E5100258327 /* AuthAPIController.swift */,
 				449906A92BB22E5100258327 /* NotesApiController.swift */,
 			);
-			name = Utils;
-			path = "../../../../WA7 2/ContactAppA4/Utils";
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		449906FD2BB34A5300258327 /* ChatListScreen */ = {
