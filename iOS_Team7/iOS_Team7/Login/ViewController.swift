@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     }
     
     @objc func loginBtnTapped(){
-        let email = loginScreen.emailField.text ?? ""
+        let email = loginScreen.emailField.text?.lowercased() ?? ""
         let password = loginScreen.passwordField.text ?? ""
             
         if !isValidEmail(email) {

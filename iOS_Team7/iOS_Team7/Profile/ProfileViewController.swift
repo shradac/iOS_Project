@@ -23,7 +23,6 @@ class ProfileViewController: UIViewController {
       fatalError("init(coder:) has not been implemented")
    }
 
-    
     override func loadView() {
        view = profileScreen
     }
@@ -51,6 +50,7 @@ class ProfileViewController: UIViewController {
             showAlert(message: "Logout failed with error: \(error.localizedDescription)")
         }
     }
+    
     
     private func showAlert(message: String) {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)

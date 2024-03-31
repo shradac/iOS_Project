@@ -32,16 +32,22 @@ class RegisterViewController: UIViewController {
     
     @objc func registerBtnTapped(){
         let name = registerScreen.nameField.text ?? ""
-        let email = registerScreen.emailField.text ?? ""
+        let email  = registerScreen.emailField.text?.lowercased() ?? ""
         let password = registerScreen.passwordField.text ?? ""
+        let confirmPassord = registerScreen.confirmPasswordField.text ?? ""
         
         if !isValidEmail(email) {
             self.showAlert(message: "Invalid Email")
             return
         }
         
-        if name.isEmpty || email.isEmpty || password.isEmpty {
+        if name.isEmpty || email.isEmpty || password.isEmpty || confirmPassord.isEmpty {
             showAlert(message: "Please enter all name , email and password.")
+            return
+        }
+        
+        if password != confirmPassord{
+            showAlert(message: "Passwords do not match")
             return
         }
         
@@ -99,6 +105,7 @@ class RegisterViewController: UIViewController {
     }
     
     private func navigateToNotesViewController() {
+        print("calledd navigateToNotesViewController")
         let notesVC = ChatsViewController()
         navigationController?.pushViewController(notesVC, animated: true)
     }
