@@ -19,6 +19,7 @@ class ChatScreenViewController: UIViewController {
     
     init(chatID: String) {
        self.chatID = chatID
+       print(self.chatID)
        super.init(nibName: nil, bundle: nil)
     }
     
@@ -51,6 +52,7 @@ class ChatScreenViewController: UIViewController {
     }
     
     func fetchMessages() {
+        print("In fetch msg")
         Model().fetchMessages(for: chatID) { [weak self] (messages, error) in
             guard let self = self else { return }
             if let error = error {

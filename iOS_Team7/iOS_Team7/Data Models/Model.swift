@@ -162,7 +162,7 @@ class Model {
     func fetchMessages(for chatId: String, completion: @escaping ([ChatMessage]?, Error?) -> Void) {
         let db = Firestore.firestore()
         db.collection("chats").document(chatId).collection("messages")
-            .order(by: "timestamp", descending: false) // Update orderBy to match ChatMessage timestamp
+            .order(by: "dateCreated", descending: false) // Update orderBy to match ChatMessage timestamp
             .getDocuments { snapshot, error in
                 if let error = error {
                     completion(nil, error)
@@ -170,9 +170,9 @@ class Model {
                     var messages: [ChatMessage] = []
                     for document in snapshot!.documents {
                         let message = ChatMessage(messageId: document.documentID, // Assign documentID as messageId
-                                                  senderId: document["senderId"] as? String ?? "",
+                                                  senderId: document["uid"] as? String ?? "",
                                                   text: document["text"] as? String ?? "",
-                                                  timestamp: (document["timestamp"] as? Timestamp)?.dateValue() ?? Date())
+                                                  timestamp: (document["dateCreated"] as? Timestamp)?.dateValue() ?? Date())
                         messages.append(message)
                     }
                     completion(messages, nil)
@@ -198,7 +198,7 @@ class Model {
     func listenForMessages(in chatId: String, completion: @escaping ([ChatMessage], Error?) -> Void) -> ListenerRegistration {
         let db = Firestore.firestore()
         return db.collection("chats").document(chatId).collection("messages")
-            .order(by: "timestamp", descending: true)
+            .order(by: "dateCreated", descending: true)
             .addSnapshotListener { snapshot, error in
                 if let error = error {
                     completion([], error)
@@ -213,9 +213,9 @@ class Model {
                 var newMessages: [ChatMessage] = []
                 for document in snapshot.documents {
                     let message = ChatMessage(messageId: document.documentID,
-                                              senderId: document["senderId"] as? String ?? "",
+                                              senderId: document["uid"] as? String ?? "",
                                               text: document["text"] as? String ?? "",
-                                              timestamp: (document["timestamp"] as? Timestamp)?.dateValue() ?? Date())
+                                              timestamp: (document["dateCreated"] as? Timestamp)?.dateValue() ?? Date())
                     newMessages.append(message)
                 }
                 completion(newMessages, nil)
