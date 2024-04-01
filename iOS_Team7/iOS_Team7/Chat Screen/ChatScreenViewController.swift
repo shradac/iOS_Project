@@ -38,6 +38,10 @@ class ChatScreenViewController: UIViewController {
         super.viewDidLoad()
         title = "Chat"
         
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+            tapRecognizer.cancelsTouchesInView = false
+            view.addGestureRecognizer(tapRecognizer)
+        
         chatView.tableView.dataSource = self
         chatView.tableView.delegate = self
         
@@ -50,6 +54,11 @@ class ChatScreenViewController: UIViewController {
         
         // Listen for new messages
         listenForMessages()
+    }
+    
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen...
+        view.endEditing(true)
     }
     
     deinit {

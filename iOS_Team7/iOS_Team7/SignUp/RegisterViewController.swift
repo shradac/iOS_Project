@@ -23,10 +23,19 @@ class RegisterViewController: UIViewController {
  
         super.viewDidLoad()
         
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+            tapRecognizer.cancelsTouchesInView = false
+            view.addGestureRecognizer(tapRecognizer)
+        
         title = "Register"
         
         registerScreen.registerBtn.addTarget(self, action: #selector(registerBtnTapped), for: .touchUpInside)
         
+    }
+    
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen...
+        view.endEditing(true)
     }
     
     @objc func registerBtnTapped(){

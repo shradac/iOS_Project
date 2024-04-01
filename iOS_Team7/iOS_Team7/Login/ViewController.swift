@@ -27,6 +27,10 @@ class ViewController: UIViewController {
         
         title = "Login"
         
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+            tapRecognizer.cancelsTouchesInView = false
+            view.addGestureRecognizer(tapRecognizer)
+        
         loginScreen.registerBtn.addTarget(self, action: #selector(registerBtnTapped), for: .touchUpInside)
         loginScreen.loginBtn.addTarget(self, action: #selector(loginBtnTapped), for: .touchUpInside)
         
@@ -35,6 +39,11 @@ class ViewController: UIViewController {
         }
         
         
+    }
+    
+    @objc func hideKeyboardOnTap(){
+        //MARK: removing the keyboard from screen...
+        view.endEditing(true)
     }
     
     @objc func registerBtnTapped(){

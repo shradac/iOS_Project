@@ -14,8 +14,8 @@
             filePath = "iOS_Team7/Chat Screen/ChatScreenViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "sendClicked()"
             landmarkType = "7">
          </BreakpointContent>
