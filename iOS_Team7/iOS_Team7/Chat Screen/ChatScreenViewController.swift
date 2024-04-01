@@ -13,13 +13,15 @@ class ChatScreenViewController: UIViewController {
     var chatView: ChatScreenView!
     var messages: [ChatMessage] = []
     var chatID: String = "" // You need to set this with the specific chat ID
+    var loggedInUsr: String = ""
     
     // Firestore listener
     var listener: ListenerRegistration?
     
     init(chatID: String) {
        self.chatID = chatID
-       print(self.chatID)
+       self.loggedInUsr = Auth.auth().currentUser?.uid ?? ""
+        print(self.loggedInUsr)
        super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,6 +44,10 @@ class ChatScreenViewController: UIViewController {
         // Fetch chat messages
         fetchMessages()
         
+        
+        //attach listener for send btn
+        chatView.sendButton.addTarget(self, action: #selector(sendClicked), for: .touchUpInside)
+        
         // Listen for new messages
         listenForMessages()
     }
@@ -49,6 +55,18 @@ class ChatScreenViewController: UIViewController {
     deinit {
         // Remove Firestore listener when the view controller is deallocated
         listener?.remove()
+    }
+    
+    @objc func sendClicked() {
+        
+        if let uwText = chatView.messageTextField.text {
+            Model().sendMessage(text: uwText, chatId: chatID, senderId: self.loggedInUsr) { error in
+                if let error = error {
+                    print("Failed to send welcome message to all users: \(error.localizedDescription)")
+                }
+            }
+        }
+        
     }
     
     func fetchMessages() {
