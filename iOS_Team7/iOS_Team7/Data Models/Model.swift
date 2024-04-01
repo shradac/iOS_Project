@@ -198,7 +198,7 @@ class Model {
     func listenForMessages(in chatId: String, completion: @escaping ([ChatMessage], Error?) -> Void) -> ListenerRegistration {
         let db = Firestore.firestore()
         return db.collection("chats").document(chatId).collection("messages")
-            .order(by: "dateCreated", descending: true)
+            .order(by: "dateCreated", descending: false)
             .addSnapshotListener { snapshot, error in
                 if let error = error {
                     completion([], error)

@@ -64,6 +64,7 @@ class ChatScreenViewController: UIViewController {
                 if let error = error {
                     print("Failed to send welcome message to all users: \(error.localizedDescription)")
                 }
+                self.chatView.messageTextField.text = ""
             }
         }
         
@@ -89,7 +90,7 @@ class ChatScreenViewController: UIViewController {
                 print("Error listening for messages: \(error.localizedDescription)")
                 return
             }
-            self.messages = newMessages + self.messages
+            self.messages = newMessages/* + self.messages*/
             self.chatView.tableView.reloadData()
         }
     }

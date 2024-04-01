@@ -6,9 +6,12 @@
 //
 
 import UIKit
-
+ 
 class ChatScreenView: UIView {
-    // Declare UI elements
+    
+    
+    
+    
     var tableView: UITableView!
     var messageTextField: UITextField!
     var sendButton: UIButton!
@@ -18,11 +21,13 @@ class ChatScreenView: UIView {
         setupTableView()
         setupTextField()
         setupSendButton()
+        initConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupTableView()
+       
     }
     
     private func setupTableView() {
@@ -30,45 +35,115 @@ class ChatScreenView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(tableView)
         
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-        
         tableView.register(ChatTableViewCell.self, forCellReuseIdentifier: "ChatCell")
     }
     
     private func setupTextField() {
-            messageTextField = UITextField()
-            messageTextField.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(messageTextField)
-            
-            NSLayoutConstraint.activate([
-                messageTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
-                messageTextField.bottomAnchor.constraint(equalTo: bottomAnchor),
-                messageTextField.heightAnchor.constraint(equalToConstant: 50), // Adjust height as needed
-                messageTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7) // Adjust width as needed
-            ])
-            
-            messageTextField.backgroundColor = .lightGray // Example background color
-            messageTextField.placeholder = "Type your message here"
-        }
-        
-    private func setupSendButton() {
-            sendButton = UIButton(type: .system)
-            sendButton.translatesAutoresizingMaskIntoConstraints = false
-            sendButton.setTitle("Send", for: .normal)
-            addSubview(sendButton)
-            
-            NSLayoutConstraint.activate([
-                sendButton.leadingAnchor.constraint(equalTo: messageTextField.trailingAnchor),
-                sendButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-                sendButton.bottomAnchor.constraint(equalTo: bottomAnchor),
-                sendButton.heightAnchor.constraint(equalToConstant: 50) // Adjust height as needed
-            ])
-            
-            sendButton.backgroundColor = .blue // Example background color
+        messageTextField = UITextField()
+        messageTextField.translatesAutoresizingMaskIntoConstraints = false
+        messageTextField.backgroundColor = .lightGray // Example background color
+        messageTextField.placeholder = "  Type your message here"
+        messageTextField.layer.cornerRadius = 10
+        addSubview(messageTextField)
     }
+    
+    private func setupSendButton() {
+        sendButton = UIButton(type: .system)
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        sendButton.setTitle("Send", for: .normal)
+        sendButton.backgroundColor = .blue
+        sendButton.layer.cornerRadius = 10
+        addSubview(sendButton)
+        
+        
+    }
+    
+   
+    func initConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+ 
+            messageTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            messageTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
+            messageTextField.heightAnchor.constraint(equalToConstant: 50),
+            messageTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -70),
+ 
+            sendButton.leadingAnchor.constraint(equalTo: messageTextField.trailingAnchor, constant: 0),
+            sendButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            sendButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
+            sendButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+ 
 }
+
+//import UIKit
+//
+//class ChatScreenView: UIView {
+//    // Declare UI elements
+//    var tableView: UITableView!
+//    var messageTextField: UITextField!
+//    var sendButton: UIButton!
+//    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        setupTableView()
+//        setupTextField()
+//        setupSendButton()
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        setupTableView()
+//    }
+//    
+//    private func setupTableView() {
+//        tableView = UITableView()
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        addSubview(tableView)
+//        
+//        NSLayoutConstraint.activate([
+//            tableView.topAnchor.constraint(equalTo: topAnchor),
+//            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+//        ])
+//        
+//        tableView.register(ChatTableViewCell.self, forCellReuseIdentifier: "ChatCell")
+//    }
+//    
+//    private func setupTextField() {
+//            messageTextField = UITextField()
+//            messageTextField.translatesAutoresizingMaskIntoConstraints = false
+//            addSubview(messageTextField)
+//            
+//            NSLayoutConstraint.activate([
+//                messageTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
+//                messageTextField.bottomAnchor.constraint(equalTo: bottomAnchor),
+//                messageTextField.heightAnchor.constraint(equalToConstant: 50), // Adjust height as needed
+//                messageTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7) // Adjust width as needed
+//            ])
+//            
+//            messageTextField.backgroundColor = .lightGray // Example background color
+//            messageTextField.placeholder = "Type your message here"
+//        }
+//        
+//    private func setupSendButton() {
+//            sendButton = UIButton(type: .system)
+//            sendButton.translatesAutoresizingMaskIntoConstraints = false
+//            sendButton.setTitle("Send", for: .normal)
+//            addSubview(sendButton)
+//            
+//            NSLayoutConstraint.activate([
+//                sendButton.leadingAnchor.constraint(equalTo: messageTextField.trailingAnchor),
+//                sendButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+//                sendButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+//                sendButton.heightAnchor.constraint(equalToConstant: 50) // Adjust height as needed
+//            ])
+//            
+//            sendButton.backgroundColor = .blue // Example background color
+//    }
+//}
