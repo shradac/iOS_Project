@@ -35,6 +35,9 @@
 		449906FF2BB34A8700258327 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449906FE2BB34A8700258327 /* ChatsViewController.swift */; };
 		449907012BB34AA400258327 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449907002BB34AA400258327 /* ChatsView.swift */; };
 		449907032BB34B0D00258327 /* ChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449907022BB34B0D00258327 /* ChatsTableViewCell.swift */; };
+		571E3BE32BBA1FA0003A3A0A /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571E3BE22BBA1FA0003A3A0A /* ChatTableViewCell.swift */; };
+		571E3BE52BBA2F25003A3A0A /* ChatScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571E3BE42BBA2F25003A3A0A /* ChatScreenViewController.swift */; };
+		571E3BE72BBA2F7B003A3A0A /* ChatScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571E3BE62BBA2F7B003A3A0A /* ChatScreenView.swift */; };
 		7F49B3B6B3DFF36A2A9A65E5 /* Pods_iOS_Team7_iOS_Team7UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A97AC5C5B793D4E4334DA1B /* Pods_iOS_Team7_iOS_Team7UITests.framework */; };
 		A5C4934F3A233F6B6BF4C881 /* Pods_iOS_Team7Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69747358AC3179CBAF1CB368 /* Pods_iOS_Team7Tests.framework */; };
 /* End PBXBuildFile section */
@@ -71,13 +74,13 @@
 		159074672BAE29CB00F5E81E /* iOS_Team7UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOS_Team7UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1590746B2BAE29CB00F5E81E /* iOS_Team7UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Team7UITests.swift; sourceTree = "<group>"; };
 		1590746D2BAE29CB00F5E81E /* iOS_Team7UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Team7UITestsLaunchTests.swift; sourceTree = "<group>"; };
-		4499067E2BB2297B00258327 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4499067E2BB2297B00258327 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4499068B2BB22B6500258327 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		4499068D2BB22B9B00258327 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = /Users/nitinbhat/Desktop/WA_8_CHATAPP/iOS_Project/iOS_Team7/iOS_Team7/Login/ViewController.swift; sourceTree = "<absolute>"; };
+		4499068D2BB22B9B00258327 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4499068F2BB22BBF00258327 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		449906912BB22BC400258327 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		449906942BB22C3400258327 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		449906962BB22C3A00258327 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = /Users/nitinbhat/Desktop/WA_8_CHATAPP/iOS_Project/iOS_Team7/iOS_Team7/Profile/ProfileViewController.swift; sourceTree = "<absolute>"; };
+		449906962BB22C3A00258327 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		449906A12BB22E4200258327 /* ContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
 		449906A22BB22E4200258327 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		449906A72BB22E5100258327 /* tokenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tokenManager.swift; sourceTree = "<group>"; };
@@ -93,6 +96,9 @@
 		449907022BB34B0D00258327 /* ChatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableViewCell.swift; sourceTree = "<group>"; };
 		48B4E44D7F66AF0A9EC8057E /* Pods-iOS_Team7Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7Tests.debug.xcconfig"; path = "Target Support Files/Pods-iOS_Team7Tests/Pods-iOS_Team7Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4C3125F1E274C05D6B4A2074 /* Pods-iOS_Team7-iOS_Team7UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7-iOS_Team7UITests.debug.xcconfig"; path = "Target Support Files/Pods-iOS_Team7-iOS_Team7UITests/Pods-iOS_Team7-iOS_Team7UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		571E3BE22BBA1FA0003A3A0A /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		571E3BE42BBA2F25003A3A0A /* ChatScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreenViewController.swift; sourceTree = "<group>"; };
+		571E3BE62BBA2F7B003A3A0A /* ChatScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreenView.swift; sourceTree = "<group>"; };
 		5FAC1413A687CA3A8FDD81CF /* Pods-iOS_Team7.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7.release.xcconfig"; path = "Target Support Files/Pods-iOS_Team7/Pods-iOS_Team7.release.xcconfig"; sourceTree = "<group>"; };
 		69747358AC3179CBAF1CB368 /* Pods_iOS_Team7Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_Team7Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7A8866E86506BB799CC901 /* Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig"; path = "Target Support Files/Pods-iOS_Team7-iOS_Team7UITests/Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 		159074492BAE29CA00F5E81E /* iOS_Team7 */ = {
 			isa = PBXGroup;
 			children = (
+				571E3BE02BBA1F72003A3A0A /* Chat Screen */,
 				449906FD2BB34A5300258327 /* ChatListScreen */,
 				449906A62BB22E5100258327 /* Utils */,
 				4499069F2BB22E4100258327 /* Data Models */,
@@ -270,6 +277,24 @@
 				69747358AC3179CBAF1CB368 /* Pods_iOS_Team7Tests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		571E3BE02BBA1F72003A3A0A /* Chat Screen */ = {
+			isa = PBXGroup;
+			children = (
+				571E3BE12BBA1F83003A3A0A /* Views */,
+				571E3BE42BBA2F25003A3A0A /* ChatScreenViewController.swift */,
+			);
+			path = "Chat Screen";
+			sourceTree = "<group>";
+		};
+		571E3BE12BBA1F83003A3A0A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				571E3BE22BBA1FA0003A3A0A /* ChatTableViewCell.swift */,
+				571E3BE62BBA2F7B003A3A0A /* ChatScreenView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -519,6 +544,7 @@
 				4499068C2BB22B6500258327 /* LoginView.swift in Sources */,
 				449906902BB22BBF00258327 /* RegisterView.swift in Sources */,
 				449906AB2BB22E5100258327 /* AuthAPIController.swift in Sources */,
+				571E3BE72BBA2F7B003A3A0A /* ChatScreenView.swift in Sources */,
 				449906A52BB22E4200258327 /* User.swift in Sources */,
 				1590744B2BAE29CA00F5E81E /* AppDelegate.swift in Sources */,
 				449906AA2BB22E5100258327 /* tokenManager.swift in Sources */,
@@ -529,10 +555,12 @@
 				449907012BB34AA400258327 /* ChatsView.swift in Sources */,
 				449907032BB34B0D00258327 /* ChatsTableViewCell.swift in Sources */,
 				449906F52BB275F800258327 /* ChatMessage.swift in Sources */,
+				571E3BE52BBA2F25003A3A0A /* ChatScreenViewController.swift in Sources */,
 				449906952BB22C3400258327 /* ProfileView.swift in Sources */,
 				449906F12BB2751500258327 /* Chat.swift in Sources */,
 				449906972BB22C3A00258327 /* ProfileViewController.swift in Sources */,
 				449906F32BB2756B00258327 /* Model.swift in Sources */,
+				571E3BE32BBA1FA0003A3A0A /* ChatTableViewCell.swift in Sources */,
 				449906FF2BB34A8700258327 /* ChatsViewController.swift in Sources */,
 				1590744D2BAE29CA00F5E81E /* SceneDelegate.swift in Sources */,
 			);

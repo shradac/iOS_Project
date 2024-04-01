@@ -112,6 +112,15 @@ extension ChatsViewController: UITableViewDataSource {
         print(chat)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//             print(self.profiles[indexPath.row])
+            
+        print(self.chats[indexPath.row]);
+        let chatScreenViewController = ChatScreenViewController(chatID: self.chats[indexPath.row].chatID);
+             //pushing showProfilController to navigation controller...
+             navigationController?.pushViewController(chatScreenViewController, animated: true)
+        }
 }
 
 
