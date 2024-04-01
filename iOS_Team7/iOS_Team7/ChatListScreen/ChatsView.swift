@@ -8,7 +8,7 @@
 import UIKit
 
 class ChatsView: UIView {
-    let tableViewNote = UITableView()
+    var tableViewChat : UITableView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,16 +21,18 @@ class ChatsView: UIView {
     }
     
     private func setupTableView() {
-        addSubview(tableViewNote)
-        tableViewNote.translatesAutoresizingMaskIntoConstraints = false
+        tableViewChat = UITableView()
+        tableViewChat.register(ChatsTableViewCell.self, forCellReuseIdentifier: ChatsTableViewCell.identifier)
+        tableViewChat.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(tableViewChat)
     }
     
     private func initConstraints() {
         NSLayoutConstraint.activate([
-            tableViewNote.topAnchor.constraint(equalTo: topAnchor),
-            tableViewNote.bottomAnchor.constraint(equalTo: bottomAnchor),
-            tableViewNote.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableViewNote.trailingAnchor.constraint(equalTo: trailingAnchor)
+            tableViewChat.topAnchor.constraint(equalTo: topAnchor),
+            tableViewChat.bottomAnchor.constraint(equalTo: bottomAnchor),
+            tableViewChat.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableViewChat.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

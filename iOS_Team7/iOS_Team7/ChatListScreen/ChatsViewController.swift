@@ -28,7 +28,9 @@ class ChatsViewController: UIViewController {
         print(chats)
         
         setupTableView()
-        notesView.tableViewNote.dataSource = self
+        
+        notesView.tableViewChat.delegate = self
+        notesView.tableViewChat.dataSource = self
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "Profile",
@@ -59,7 +61,7 @@ class ChatsViewController: UIViewController {
                     
                     // Reload table view after fetching chat panels
                     DispatchQueue.main.async {
-                        self.notesView.tableViewNote.reloadData()
+                        self.notesView.tableViewChat.reloadData()
                     }
                 }
             }
@@ -93,13 +95,13 @@ class ChatsViewController: UIViewController {
     
     
     private func setupTableView() {
-        notesView.tableViewNote.register(ChatsTableViewCell.self, forCellReuseIdentifier: ChatsTableViewCell.identifier)
+        notesView.tableViewChat.register(ChatsTableViewCell.self, forCellReuseIdentifier: ChatsTableViewCell.identifier)
     }
     
     
 }
 
-extension ChatsViewController: UITableViewDataSource {
+extension ChatsViewController: UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chats.count // Return the number of chat groups
     }
@@ -114,13 +116,12 @@ extension ChatsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//             print(self.profiles[indexPath.row])
-            
+        print("REACHED select")
         print(self.chats[indexPath.row]);
         let chatScreenViewController = ChatScreenViewController(chatID: self.chats[indexPath.row].chatID);
              //pushing showProfilController to navigation controller...
              navigationController?.pushViewController(chatScreenViewController, animated: true)
-        }
+    }
 }
 
 
