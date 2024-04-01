@@ -75,10 +75,20 @@ class RegisterViewController: UIViewController {
                                         } else {
                                             print("Welcome message sent to all users successfully.")
                                             // Proceed to the next view controller
+                                            //self.navigateToNotesViewController()
                                             
                                         }
                                 }
-                                self.navigateToNotesViewController()
+                                
+                                do {
+                                    try Auth.auth().signOut()
+                                    print("Logout successful")
+                                    self.navigateToLoginViewController()
+                                } catch {
+                                    print("Logout failed with error: \(error.localizedDescription)")
+                                }
+                                
+                                
                             } else {
                                 print("User creation failed.")
                             }
@@ -107,6 +117,11 @@ class RegisterViewController: UIViewController {
         print("calledd navigateToNotesViewController")
         let notesVC = ChatsViewController()
         navigationController?.pushViewController(notesVC, animated: true)
+    }
+    
+    private func navigateToLoginViewController() {
+        let loginVC = ViewController()
+        navigationController?.pushViewController(loginVC, animated: true)
     }
  
 }
