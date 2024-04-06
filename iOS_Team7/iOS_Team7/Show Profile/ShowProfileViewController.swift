@@ -11,12 +11,21 @@ class ShowProfileViewController: UIViewController {
 
     var delegate: ViewController!
     let showProfileScreen = ShowProfileView()
-    var receivedPackage: ViewController.Package = ViewController.Package()
+    let profileInfo: Profile
     
     //MARK: patch the view of the controller to the DisplayView...
     override func loadView() {
         view = showProfileScreen
     }
+    
+    init(profileInfo: Profile) {
+       self.profileInfo = profileInfo
+       super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+   }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,25 +35,25 @@ class ShowProfileViewController: UIViewController {
             action: #selector(onEditBarButtonTapped)
         )
 
-        if let unwrappedName = receivedPackage.contactName,
-           let unwrappedEmail = receivedPackage.contactEmail,
-           let unwrappedPhoneNum = receivedPackage.contactPhoneNum,
-           let unwrappedContactImage = receivedPackage.contactImage,
-           let unwrappedPhoneType = receivedPackage.contactPhoneType,
-           let unwrappedAddress1 = receivedPackage.contactAddress1,
-           let unwrappedAddress2 = receivedPackage.contactAddress2,
-           let unwrappedAddress3 = receivedPackage.contactZip {
+        if let unwrappedName = profileInfo.name,
+           let unwrappedEmail = profileInfo.email,
+           let unwrappedPhoneNum = profileInfo.phone,
+           let unwrappedProfileImage = profileInfo.profileImage,
+           let unwrappedPhoneType = profileInfo.phoneType,
+           let unwrappedAddress1 = profileInfo.address1,
+           let unwrappedAddress2 = profileInfo.address2,
+           let unwrappedAddress3 = profileInfo.address3 {
             if !unwrappedName.isEmpty{
                 showProfileScreen.labelName.text = "\(unwrappedName)"
             }
             if !unwrappedEmail.isEmpty{
                 showProfileScreen.labelEmail.text = "Email: " + unwrappedEmail
             }
-            if !unwrappedPhoneNum.isEmpty{
-                showProfileScreen.labelPhoneNum.text = "Phone: " + unwrappedPhoneNum + " (\(unwrappedPhoneType))"
+            if unwrappedPhoneNum > 0{
+                showProfileScreen.labelPhoneNum.text = "Phone: " + "\(unwrappedPhoneNum)" + unwrappedPhoneType
             }
-            if (unwrappedContactImage != nil) {
-                showProfileScreen.imageContact.image = unwrappedContactImage
+            if (unwrappedProfileImage != nil) {
+                showProfileScreen.imageProfile.image = unwrappedProfileImage
             }
             showProfileScreen.labelAddressHeading.text = "Address:"
             if !unwrappedAddress1.isEmpty{
@@ -59,15 +68,15 @@ class ShowProfileViewController: UIViewController {
         }
     }
     
-    func delegateOnEditContact(contact: Contact){
-        if let unwrappedName = contact.name,
-           let unwrappedEmail = contact.email,
-           let unwrappedPhoneNum = contact.phone,
-           let unwrappedContactImage = contact.contactImage,
-           let unwrappedPhoneType = contact.phoneType,
-           let unwrappedAddress1 = contact.address1,
-           let unwrappedAddress2 = contact.address2,
-           let unwrappedAddress3 = contact.address3 {
+    func onEditProfile(profile: Profile){
+        if let unwrappedName = profile.name,
+           let unwrappedEmail = profile.email,
+           let unwrappedPhoneNum = profile.phone,
+           let unwrappedProfileImage = profile.profileImage,
+           let unwrappedPhoneType = profile.phoneType,
+           let unwrappedAddress1 = profile.address1,
+           let unwrappedAddress2 = profile.address2,
+           let unwrappedAddress3 = profile.address3 {
             if !unwrappedName.isEmpty{
                 showProfileScreen.labelName.text = "\(unwrappedName)"
             }
@@ -77,8 +86,8 @@ class ShowProfileViewController: UIViewController {
             
             showProfileScreen.labelPhoneNum.text = "Phone: " + "\(unwrappedPhoneNum)" + " (\(unwrappedPhoneType))"
             
-            if (unwrappedContactImage != nil) {
-                showProfileScreen.imageContact.image = unwrappedContactImage
+            if (unwrappedProfileImage != nil) {
+                showProfileScreen.imageProfile.image = unwrappedProfileImage
             }
             showProfileScreen.labelAddressHeading.text = "Address:"
             if !unwrappedAddress1.isEmpty{
@@ -92,13 +101,12 @@ class ShowProfileViewController: UIViewController {
             }
         }
         
-        delegate.delegateOnEditContact(contact: contact, indexToUpdate: receivedPackage.contactArrayIndex)
+        // TODO: Save the changed profile fields
+        
     }
     
     @objc func onEditBarButtonTapped(){
-        let editContactController = EditContactViewController()
-        editContactController.receivedPackage = self.receivedPackage
-        editContactController.delegate = self
-        navigationController?.pushViewController(editContactController, animated: true)
+        let editProfileController = EditProfileViewController(profileInfo: profileInfo)
+        navigationController?.pushViewController(editProfileController, animated: true)
     }
 }
