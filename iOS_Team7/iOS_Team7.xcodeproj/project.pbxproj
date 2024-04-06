@@ -28,6 +28,8 @@
 		44E5DB1B2BBF26920082742C /* Unauthpost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E5DB1A2BBF26920082742C /* Unauthpost.swift */; };
 		44E5DB1E2BBF27550082742C /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E5DB1D2BBF27550082742C /* TableViewCell.swift */; };
 		44E5DB202BBF2F960082742C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E5DB1F2BBF2F960082742C /* User.swift */; };
+		57003BD92BC0F25100257816 /* ShowProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57003BD82BC0F25100257816 /* ShowProfileView.swift */; };
+		57003BDB2BC0F26000257816 /* ShowProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57003BDA2BC0F26000257816 /* ShowProfileViewController.swift */; };
 		771C4960750DC05FF280CFA2 /* Pods_iOS_Team7.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4F1EF655299EBDEC1F5CFA /* Pods_iOS_Team7.framework */; };
 		DAF6A493F86DAF32FCDCA7A3 /* Pods_iOS_Team7_iOS_Team7UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25274055EDEB5579421101C8 /* Pods_iOS_Team7_iOS_Team7UITests.framework */; };
 /* End PBXBuildFile section */
@@ -67,7 +69,7 @@
 		25274055EDEB5579421101C8 /* Pods_iOS_Team7_iOS_Team7UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_Team7_iOS_Team7UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D7C2D9C22B1E7CEA9D2537 /* Pods-iOS_Team7.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7.release.xcconfig"; path = "Target Support Files/Pods-iOS_Team7/Pods-iOS_Team7.release.xcconfig"; sourceTree = "<group>"; };
 		36270F169BE754F1917C8CA9 /* Pods_iOS_Team7Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_Team7Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		44326A4E2BBF0CF10042ABD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/nitinbhat/Desktop/Project-Mobile-Dev/iOS_Project/iOS_Team7/iOS_Team7/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
+		44326A4E2BBF0CF10042ABD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Assignment 8/iOS_Project/iOS_Team7/iOS_Team7/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		44326A572BBF0EC40042ABD6 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		44326A5B2BBF0F240042ABD6 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		44326A5D2BBF11E90042ABD6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -78,6 +80,8 @@
 		44E5DB1A2BBF26920082742C /* Unauthpost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unauthpost.swift; sourceTree = "<group>"; };
 		44E5DB1D2BBF27550082742C /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		44E5DB1F2BBF2F960082742C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		57003BD82BC0F25100257816 /* ShowProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileView.swift; sourceTree = "<group>"; };
+		57003BDA2BC0F26000257816 /* ShowProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileViewController.swift; sourceTree = "<group>"; };
 		71B656096CF2A0E6B44C316D /* Pods-iOS_Team7Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7Tests.release.xcconfig"; path = "Target Support Files/Pods-iOS_Team7Tests/Pods-iOS_Team7Tests.release.xcconfig"; sourceTree = "<group>"; };
 		7227991B0C3A8A309CA3CBD8 /* Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig"; path = "Target Support Files/Pods-iOS_Team7-iOS_Team7UITests/Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig"; sourceTree = "<group>"; };
 		967F19DA1FEC06AF56F22FCF /* Pods-iOS_Team7.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7.debug.xcconfig"; path = "Target Support Files/Pods-iOS_Team7/Pods-iOS_Team7.debug.xcconfig"; sourceTree = "<group>"; };
@@ -138,10 +142,10 @@
 		159074492BAE29CA00F5E81E /* iOS_Team7 */ = {
 			isa = PBXGroup;
 			children = (
+				57003BDD2BC0F46900257816 /* Edit Profile */,
+				57003BD62BC0F23400257816 /* Show Profile */,
 				44E5DB192BBF26680082742C /* Data */,
 				44326A552BBF0E8E0042ABD6 /* Model */,
-				44326A542BBF0E000042ABD6 /* EditProfile */,
-				44326A532BBF0DF50042ABD6 /* Profile */,
 				44326A522BBF0DD30042ABD6 /* Home */,
 				44326A512BBF0D9B0042ABD6 /* Signup */,
 				44326A502BBF0D8E0042ABD6 /* Login */,
@@ -201,20 +205,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		44326A532BBF0DF50042ABD6 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		44326A542BBF0E000042ABD6 /* EditProfile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = EditProfile;
-			sourceTree = "<group>";
-		};
 		44326A552BBF0E8E0042ABD6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +245,22 @@
 				44E5DB1D2BBF27550082742C /* TableViewCell.swift */,
 			);
 			path = PostTableView;
+			sourceTree = "<group>";
+		};
+		57003BD62BC0F23400257816 /* Show Profile */ = {
+			isa = PBXGroup;
+			children = (
+				57003BD82BC0F25100257816 /* ShowProfileView.swift */,
+				57003BDA2BC0F26000257816 /* ShowProfileViewController.swift */,
+			);
+			path = "Show Profile";
+			sourceTree = "<group>";
+		};
+		57003BDD2BC0F46900257816 /* Edit Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Edit Profile";
 			sourceTree = "<group>";
 		};
 		B0E4CF3F6B5D7A81C4A4452A /* Pods */ = {
@@ -527,11 +533,13 @@
 				44326A602BBF13570042ABD6 /* RegisterViewController.swift in Sources */,
 				44326A5C2BBF0F240042ABD6 /* Posts.swift in Sources */,
 				44326A5E2BBF11E90042ABD6 /* HomeView.swift in Sources */,
+				57003BD92BC0F25100257816 /* ShowProfileView.swift in Sources */,
 				44326A622BBF136C0042ABD6 /* RegisterView.swift in Sources */,
 				1590744B2BAE29CA00F5E81E /* AppDelegate.swift in Sources */,
 				44E5DB1B2BBF26920082742C /* Unauthpost.swift in Sources */,
 				44E5DB1E2BBF27550082742C /* TableViewCell.swift in Sources */,
 				44326A662BBF13910042ABD6 /* LoginView.swift in Sources */,
+				57003BDB2BC0F26000257816 /* ShowProfileViewController.swift in Sources */,
 				1590744D2BAE29CA00F5E81E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
