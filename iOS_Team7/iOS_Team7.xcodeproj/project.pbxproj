@@ -30,6 +30,10 @@
 		44E5DB202BBF2F960082742C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E5DB1F2BBF2F960082742C /* User.swift */; };
 		57003BD92BC0F25100257816 /* ShowProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57003BD82BC0F25100257816 /* ShowProfileView.swift */; };
 		57003BDB2BC0F26000257816 /* ShowProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57003BDA2BC0F26000257816 /* ShowProfileViewController.swift */; };
+		57003BDF2BC0F76200257816 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57003BDE2BC0F76200257816 /* EditProfileView.swift */; };
+		57003BE12BC0F7EB00257816 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57003BE02BC0F7EB00257816 /* EditProfileViewController.swift */; };
+		57003BE32BC1000600257816 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57003BE22BC1000600257816 /* Profile.swift */; };
+		57003BE62BC109F000257816 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57003BE52BC109F000257816 /* Types.swift */; };
 		771C4960750DC05FF280CFA2 /* Pods_iOS_Team7.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4F1EF655299EBDEC1F5CFA /* Pods_iOS_Team7.framework */; };
 		DAF6A493F86DAF32FCDCA7A3 /* Pods_iOS_Team7_iOS_Team7UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25274055EDEB5579421101C8 /* Pods_iOS_Team7_iOS_Team7UITests.framework */; };
 /* End PBXBuildFile section */
@@ -82,6 +86,10 @@
 		44E5DB1F2BBF2F960082742C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		57003BD82BC0F25100257816 /* ShowProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileView.swift; sourceTree = "<group>"; };
 		57003BDA2BC0F26000257816 /* ShowProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileViewController.swift; sourceTree = "<group>"; };
+		57003BDE2BC0F76200257816 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		57003BE02BC0F7EB00257816 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		57003BE22BC1000600257816 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		57003BE52BC109F000257816 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		71B656096CF2A0E6B44C316D /* Pods-iOS_Team7Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7Tests.release.xcconfig"; path = "Target Support Files/Pods-iOS_Team7Tests/Pods-iOS_Team7Tests.release.xcconfig"; sourceTree = "<group>"; };
 		7227991B0C3A8A309CA3CBD8 /* Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig"; path = "Target Support Files/Pods-iOS_Team7-iOS_Team7UITests/Pods-iOS_Team7-iOS_Team7UITests.release.xcconfig"; sourceTree = "<group>"; };
 		967F19DA1FEC06AF56F22FCF /* Pods-iOS_Team7.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7.debug.xcconfig"; path = "Target Support Files/Pods-iOS_Team7/Pods-iOS_Team7.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +150,7 @@
 		159074492BAE29CA00F5E81E /* iOS_Team7 */ = {
 			isa = PBXGroup;
 			children = (
+				57003BE42BC109DA00257816 /* Utilities */,
 				57003BDD2BC0F46900257816 /* Edit Profile */,
 				57003BD62BC0F23400257816 /* Show Profile */,
 				44E5DB192BBF26680082742C /* Data */,
@@ -210,6 +219,7 @@
 			children = (
 				44326A592BBF0ED60042ABD6 /* Posts */,
 				44326A562BBF0EA10042ABD6 /* Authentication */,
+				57003BE22BC1000600257816 /* Profile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -259,8 +269,18 @@
 		57003BDD2BC0F46900257816 /* Edit Profile */ = {
 			isa = PBXGroup;
 			children = (
+				57003BDE2BC0F76200257816 /* EditProfileView.swift */,
+				57003BE02BC0F7EB00257816 /* EditProfileViewController.swift */,
 			);
 			path = "Edit Profile";
+			sourceTree = "<group>";
+		};
+		57003BE42BC109DA00257816 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				57003BE52BC109F000257816 /* Types.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		B0E4CF3F6B5D7A81C4A4452A /* Pods */ = {
@@ -528,13 +548,17 @@
 			files = (
 				44E5DB202BBF2F960082742C /* User.swift in Sources */,
 				44326A642BBF13800042ABD6 /* LoginViewController.swift in Sources */,
+				57003BDF2BC0F76200257816 /* EditProfileView.swift in Sources */,
 				1590744F2BAE29CA00F5E81E /* ViewController.swift in Sources */,
+				57003BE62BC109F000257816 /* Types.swift in Sources */,
 				44326A582BBF0EC40042ABD6 /* AuthModel.swift in Sources */,
 				44326A602BBF13570042ABD6 /* RegisterViewController.swift in Sources */,
 				44326A5C2BBF0F240042ABD6 /* Posts.swift in Sources */,
+				57003BE32BC1000600257816 /* Profile.swift in Sources */,
 				44326A5E2BBF11E90042ABD6 /* HomeView.swift in Sources */,
 				57003BD92BC0F25100257816 /* ShowProfileView.swift in Sources */,
 				44326A622BBF136C0042ABD6 /* RegisterView.swift in Sources */,
+				57003BE12BC0F7EB00257816 /* EditProfileViewController.swift in Sources */,
 				1590744B2BAE29CA00F5E81E /* AppDelegate.swift in Sources */,
 				44E5DB1B2BBF26920082742C /* Unauthpost.swift in Sources */,
 				44E5DB1E2BBF27550082742C /* TableViewCell.swift in Sources */,
