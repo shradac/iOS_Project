@@ -91,8 +91,8 @@ class LoginViewController:  UIViewController {
     
     private func navigateToLandingViewController() {
         print("navigate")
-        //let notesVC = ChatsViewController()
-       // navigationController?.pushViewController(notesVC, animated: true)
+        let loggedinHomeView = LoggedInHomeViewController()
+        navigationController?.pushViewController(loggedinHomeView, animated: true)
     }
     
     
