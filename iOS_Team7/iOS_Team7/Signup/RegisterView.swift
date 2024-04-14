@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TagListView
 
 class RegisterView: UIView {
     var nameField: UITextField!
@@ -16,6 +17,10 @@ class RegisterView: UIView {
     var imageView: UIImageView!
     var buttonSelectRoleType: UIButton!
     var buttonTakePhoto: UIButton!
+    
+    var expertiseField: UITextField!
+    var addExpertiseButton: UIButton!
+    var expertiseTagsView: TagListView!
     
     var roleLabel: UILabel!
     
@@ -35,9 +40,45 @@ class RegisterView: UIView {
         setupbuttonSelectRoleType()
         setupRoleLabel()
         
+        setupExpertiseField()
+        setupExpertiseTagsView()
+        setupAddExpertiseButton()
+        
         
         initConstraints()
     }
+    
+    func showExpertiseTagComponents(_ show: Bool) {
+            let alpha: CGFloat = show ? 1.0 : 0.0
+            
+            UIView.animate(withDuration: 0.1) {
+                self.expertiseField.alpha = alpha
+                self.addExpertiseButton.alpha = alpha
+                self.expertiseTagsView.alpha = alpha
+            }
+    }
+    
+    func setupExpertiseField() {
+            expertiseField = UITextField()
+            expertiseField.placeholder = "Enter expertise area"
+            expertiseField.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(expertiseField)
+    }
+
+    func setupAddExpertiseButton() {
+            addExpertiseButton = UIButton(type: .system)
+            addExpertiseButton.setTitle("Add", for: .normal)
+            addExpertiseButton.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(addExpertiseButton)
+    }
+
+    func setupExpertiseTagsView() {
+            expertiseTagsView = TagListView()
+            expertiseTagsView.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(expertiseTagsView)
+    }
+    
+
     
     func setupRoleLabel(){
         roleLabel = UILabel()
@@ -137,16 +178,35 @@ class RegisterView: UIView {
             buttonTakePhoto.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: 20),
             buttonTakePhoto.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
             buttonTakePhoto.trailingAnchor.constraint(equalTo: nameField.trailingAnchor),
-              
+            buttonTakePhoto.widthAnchor.constraint(equalToConstant: 100),
+            buttonTakePhoto.heightAnchor.constraint(equalToConstant: 100),
+            
+            
             roleLabel.topAnchor.constraint(equalTo: buttonTakePhoto.bottomAnchor, constant: 20),
             roleLabel.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
             roleLabel.trailingAnchor.constraint(equalTo: nameField.trailingAnchor),
+            
             
             buttonSelectRoleType.topAnchor.constraint(equalTo: roleLabel.bottomAnchor, constant: 20),
             buttonSelectRoleType.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
             buttonSelectRoleType.trailingAnchor.constraint(equalTo: nameField.trailingAnchor),
             
-            emailField.topAnchor.constraint(equalTo: buttonSelectRoleType.bottomAnchor, constant: 20),
+            expertiseField.topAnchor.constraint(equalTo: buttonSelectRoleType.bottomAnchor, constant: 20),
+            expertiseField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            expertiseField.trailingAnchor.constraint(equalTo: addExpertiseButton.leadingAnchor, constant: -8),
+            expertiseField.heightAnchor.constraint(equalToConstant: 40),
+
+                        
+            addExpertiseButton.centerYAnchor.constraint(equalTo: expertiseField.centerYAnchor),
+            addExpertiseButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+
+                        
+            expertiseTagsView.topAnchor.constraint(equalTo: expertiseField.bottomAnchor, constant: 8),
+            expertiseTagsView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            expertiseTagsView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            
+            emailField.topAnchor.constraint(equalTo: expertiseTagsView.bottomAnchor, constant: 20),
             emailField.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
             emailField.trailingAnchor.constraint(equalTo: nameField.trailingAnchor),
             
@@ -161,7 +221,9 @@ class RegisterView: UIView {
             registerBtn.topAnchor.constraint(equalTo: confirmPasswordField.bottomAnchor, constant: 20),
             registerBtn.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             registerBtn.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            registerBtn.heightAnchor.constraint(equalToConstant: 50) // Optional: You can set a fixed height for the button
+            registerBtn.heightAnchor.constraint(equalToConstant: 50)
+            
+            
         ])
     }
  

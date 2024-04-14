@@ -34,7 +34,8 @@ class LoginViewController:  UIViewController {
         loginScreen.loginBtn.addTarget(self, action: #selector(loginBtnTapped), for: .touchUpInside)
         
         if Auth.auth().currentUser != nil {
-            navigateToLandingViewController()
+            //navigateToLandingViewController()
+            navigateToTabsViewController()
         }
         
         
@@ -72,7 +73,8 @@ class LoginViewController:  UIViewController {
                     return
                 }
                 // Authentication successful
-                self.navigateToLandingViewController()
+                //self.navigateToLandingViewController()
+            self.navigateToTabsViewController()
         }
         
     }
@@ -89,10 +91,15 @@ class LoginViewController:  UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func navigateToLandingViewController() {
-        print("navigate")
-        let loggedinHomeView = LoggedInHomeViewController()
-        navigationController?.pushViewController(loggedinHomeView, animated: true)
+//    private func navigateToLandingViewController() {
+//        print("navigate")
+//        let loggedinHomeView = LoggedInHomeViewController()
+//        navigationController?.pushViewController(loggedinHomeView, animated: true)
+//    }
+    
+    private func navigateToTabsViewController() {
+            let tabsViewController = HOCTabs()
+            navigationController?.pushViewController(tabsViewController, animated: true)
     }
     
     

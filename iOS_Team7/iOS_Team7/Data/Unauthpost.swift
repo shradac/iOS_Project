@@ -12,4 +12,5 @@ struct Unauthpost {
     let title: String
     let content: String
     let timestamp: Date
+    let image: String
 }

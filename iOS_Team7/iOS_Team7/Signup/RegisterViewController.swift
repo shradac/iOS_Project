@@ -17,7 +17,20 @@ class RegisterViewController: UIViewController {
     let model = AuthModel()
     
     let roleTypes: [String] = ["expert", "user"]
-    var selectedRoleType:String? = "expert"
+    var expertiseTags: [String] = []
+    //var selectedRoleType:String? = "expert"
+    var selectedRoleType: String? {
+        didSet {
+            guard let selectedRole = selectedRoleType else { return }
+            
+            // Update the visibility of tag-related components based on the selected role type
+            if selectedRole == "expert" {
+                registerScreen.showExpertiseTagComponents(true)
+            } else {
+                registerScreen.showExpertiseTagComponents(false)
+            }
+        }
+    }
     
     var pickedImage:UIImage?
     
@@ -36,10 +49,26 @@ class RegisterViewController: UIViewController {
         title = "Register"
         
         registerScreen.registerBtn.addTarget(self, action: #selector(registerBtnTapped), for: .touchUpInside)
+        registerScreen.addExpertiseButton.addTarget(self, action: #selector(addExpertiseButtonTapped), for: .touchUpInside)
+        //registerScreen.buttonSelectRoleType.addTarget(self, action: #selector(roleTypeSelected(_:)), for: .touchUpInside)
         
         registerScreen.buttonSelectRoleType.menu = getMenuTypes()
         registerScreen.buttonTakePhoto.menu = getMenuImagePicker()
         
+    }
+    
+    
+    @objc func addExpertiseButtonTapped() {
+        guard let expertise = registerScreen.expertiseField.text, !expertise.isEmpty else {
+                // Show alert or handle empty expertise field
+                return
+        }
+
+        expertiseTags.append(expertise)
+        registerScreen.expertiseTagsView.addTag(expertise)
+
+        // Clear the expertise field
+        registerScreen.expertiseField.text = nil
     }
     
     func getMenuTypes() -> UIMenu{
@@ -96,11 +125,25 @@ class RegisterViewController: UIViewController {
         view.endEditing(true)
     }
     
+//    @objc func roleTypeSelected(_ sender: UIButton) {
+//        guard let selectedRole = selectedRoleType else {
+//                return
+//        }
+//        
+//        // Update the visibility of tag-related components based on the selected role type
+//        if selectedRole == "expert" {
+//            registerScreen.showExpertiseTagComponents(true)
+//        } else {
+//            registerScreen.showExpertiseTagComponents(false)
+//        }
+//    }
+    
     @objc func registerBtnTapped(){
         let name = registerScreen.nameField.text ?? ""
         let email  = registerScreen.emailField.text?.lowercased() ?? ""
         let password = registerScreen.passwordField.text ?? ""
         let confirmPassord = registerScreen.confirmPasswordField.text ?? ""
+
         
         if !isValidEmail(email) {
             self.showAlert(message: "Invalid Email")
@@ -117,43 +160,76 @@ class RegisterViewController: UIViewController {
             return
         }
         
+        guard let selectedRole = selectedRoleType else {
+                showAlert(message: "Please select a role.")
+                return
+        }
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
-                guard let self = self else { return }
-                if let error = error {
-                    self.showAlert(message: "Registration failed. Please try again. \(error.localizedDescription)")
-                    print("Registration failed with error: \(error.localizedDescription)")
+            guard let self = self else { return }
+            if let error = error {
+                self.showAlert(message: "Registration failed. Please try again. \(error.localizedDescription)")
+                print("Registration failed with error: \(error.localizedDescription)")
+                return
+            }
+            
+            // Check if an image is picked
+            if let image = self.pickedImage {
+                // Convert the image to JPEG data
+                guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+                    self.showAlert(message: "Failed to convert image to data.")
                     return
                 }
-            
-                self.model.createUser(name: name, email: email) { user, error in
-                            if let error = error {
-                                self.showAlert(message: "Failed to create user. \(error.localizedDescription)")
-                                print("Failed to create user in Firestore: \(error.localizedDescription)")
-                                return
-                            }
- 
-                            if let user = user {
-                                print("User created successfully: \(user)")
-                                do {
-                                    try Auth.auth().signOut()
-                                    print("Logout successful")
-                                    self.navigateToLoginViewController()
-                                } catch {
-                                    print("Logout failed with error: \(error.localizedDescription)")
-                                }
-                                
-                                
-                            } else {
-                                print("User creation failed.")
-                            }
-                    
-                   
-                }
                 
-            
+                // Pass the image data to createUser function
+                self.model.createUser(name: name, email: email, imageData: imageData , role: selectedRole , tags: expertiseTags) { user, error in
+                    if let error = error {
+                        self.showAlert(message: "Failed to create user. \(error.localizedDescription)")
+                        print("Failed to create user in Firestore: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    if let user = user {
+                        print("User created successfully: \(user)")
+                        do {
+                            try Auth.auth().signOut()
+                            print("Logout successful")
+                            self.navigateToLoginViewController()
+                        } catch {
+                            print("Logout failed with error: \(error.localizedDescription)")
+                        }
+                        
+                    } else {
+                        print("User creation failed.")
+                    }
+                }
+            } else {
+                // If no image is picked, register user without image data
+                self.model.createUser(name: name, email: email, imageData: nil , role: selectedRole, tags: expertiseTags) { user, error in
+                    if let error = error {
+                        self.showAlert(message: "Failed to create user. \(error.localizedDescription)")
+                        print("Failed to create user in Firestore: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    if let user = user {
+                        print("User created successfully: \(user)")
+                        do {
+                            try Auth.auth().signOut()
+                            print("Logout successful")
+                            self.navigateToLoginViewController()
+                        } catch {
+                            print("Logout failed with error: \(error.localizedDescription)")
+                        }
+                        
+                    } else {
+                        print("User creation failed.")
+                    }
+                }
+            }
         }
     }
+
     
     func isValidEmail(_ email: String) -> Bool {
             // Improved email validation using regular expression
@@ -168,11 +244,6 @@ class RegisterViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func navigateToNotesViewController() {
-        print("navigate")
-//        let notesVC = ChatsViewController()
-//        navigationController?.pushViewController(notesVC, animated: true)
-    }
     
     private func navigateToLoginViewController() {
         let loginVC = LoginViewController()
