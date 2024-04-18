@@ -11,12 +11,46 @@ import FirebaseFirestore
 import PhotosUI
 import Foundation
  
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, ObservableObject, UITextFieldDelegate {
  
     let registerScreen = RegisterView()
     let model = AuthModel()
+    var filteredSuggestions: [String] = []
     
     let roleTypes: [String] = ["expert", "user"]
+    var suggestions = ["Cardiology",
+                       "Dermatology",
+                       "Endocrinology",
+                       "Gastroenterology",
+                       "Hematology",
+                       "Neurology",
+                       "Oncology",
+                       "Orthopedics",
+                       "Pediatrics",
+                       "Psychiatry",
+                       "Pulmonology",
+                       "Rheumatology",
+                       "Urology",
+                       "Ophthalmology",
+                       "Obstetrics",
+                       "Gynecology",
+                       "Anesthesiology",
+                       "Emergency Medicine",
+                       "Radiology",
+                       "Infectious Diseases",
+                       "Nephrology",
+                       "Geriatrics",
+                       "Allergy and Immunology",
+                       "Physical Medicine and Rehabilitation",
+                       "Pathology",
+                       "Medical Genetics",
+                       "Pain Management",
+                       "Sports Medicine",
+                       "Neurosurgery",
+                       "Plastic Surgery",
+                       "Nuclear Medicine",
+                        "Skin", "Hair"
+    ]
     var expertiseTags: [String] = []
     //var selectedRoleType:String? = "expert"
     var selectedRoleType: String? {
@@ -47,6 +81,12 @@ class RegisterViewController: UIViewController {
             view.addGestureRecognizer(tapRecognizer)
         
         title = "Register"
+        registerScreen.expertiseField.delegate = self
+        registerScreen.suggestionsPickerView.dataSource = self
+        registerScreen.suggestionsPickerView.delegate = self
+        
+        // Initially hide the picker view
+        hideSuggestions()
         
         registerScreen.registerBtn.addTarget(self, action: #selector(registerBtnTapped), for: .touchUpInside)
         registerScreen.addExpertiseButton.addTarget(self, action: #selector(addExpertiseButtonTapped), for: .touchUpInside)
@@ -55,6 +95,45 @@ class RegisterViewController: UIViewController {
         registerScreen.buttonSelectRoleType.menu = getMenuTypes()
         registerScreen.buttonTakePhoto.menu = getMenuImagePicker()
         
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Ensure we're dealing with the expertiseField
+        guard textField == registerScreen.expertiseField else {
+            return true
+        }
+
+        // Calculate the new text after the replacement
+        let currentText = textField.text ?? ""
+        guard let newTextRange = Range(range, in: currentText) else {
+            return true
+        }
+        let newText = currentText.replacingCharacters(in: newTextRange, with: string)
+        // Show or hide suggestions based on the new text
+        if !newText.isEmpty {
+            showSuggestions(for: newText)
+        } else {
+            hideSuggestions()
+        }
+
+        return true
+    }
+
+    
+    func showSuggestions(for text: String) {
+        print("while typing", text)
+        filteredSuggestions = suggestions.filter { $0.lowercased().starts(with: text.lowercased())}
+        
+        // Reload the data of the picker view
+        registerScreen.suggestionsPickerView.reloadAllComponents()
+        
+        // Show the picker view
+        registerScreen.suggestionsPickerView.isHidden = false
+    }
+
+    func hideSuggestions() {
+        // Hide the picker view
+        registerScreen.suggestionsPickerView.isHidden = true
     }
     
     
@@ -295,3 +374,30 @@ extension RegisterViewController: UINavigationControllerDelegate, UIImagePickerC
         }
     }
 }
+
+
+extension RegisterViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return filteredSuggestions.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return filteredSuggestions[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedSuggestion = filteredSuggestions[row]
+        print("Selected suggestion: \(selectedSuggestion)")
+        
+        // Update the text field with the selected suggestion
+        registerScreen.expertiseField.text = selectedSuggestion
+        
+        // Hide the picker view after selecting a suggestion
+        hideSuggestions()
+    }
+}
+

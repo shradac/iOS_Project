@@ -21,6 +21,7 @@ class RegisterView: UIView {
     var expertiseField: UITextField!
     var addExpertiseButton: UIButton!
     var expertiseTagsView: TagListView!
+    var suggestionsPickerView: UIPickerView!
     
     var roleLabel: UILabel!
     
@@ -39,13 +40,20 @@ class RegisterView: UIView {
         setupbuttonTakePhoto()
         setupbuttonSelectRoleType()
         setupRoleLabel()
-        
+        setupSuggestionsPickerView()
         setupExpertiseField()
         setupExpertiseTagsView()
         setupAddExpertiseButton()
         
         
         initConstraints()
+    }
+    
+    func setupSuggestionsPickerView() {
+        suggestionsPickerView = UIPickerView()
+        suggestionsPickerView.translatesAutoresizingMaskIntoConstraints = false
+        suggestionsPickerView.isUserInteractionEnabled = true
+        self.addSubview(suggestionsPickerView)
     }
     
     func showExpertiseTagComponents(_ show: Bool) {
@@ -195,7 +203,10 @@ class RegisterView: UIView {
             expertiseField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             expertiseField.trailingAnchor.constraint(equalTo: addExpertiseButton.leadingAnchor, constant: -8),
             expertiseField.heightAnchor.constraint(equalToConstant: 40),
-
+            
+            suggestionsPickerView.topAnchor.constraint(equalTo: expertiseField.bottomAnchor, constant: -50),
+            suggestionsPickerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            suggestionsPickerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
                         
             addExpertiseButton.centerYAnchor.constraint(equalTo: expertiseField.centerYAnchor),
             addExpertiseButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
@@ -222,8 +233,6 @@ class RegisterView: UIView {
             registerBtn.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             registerBtn.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             registerBtn.heightAnchor.constraint(equalToConstant: 50)
-            
-            
         ])
     }
  

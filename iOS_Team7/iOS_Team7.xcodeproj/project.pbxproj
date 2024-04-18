@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		155C64942BC0D13F00FFABB2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 155C64932BC0D13F00FFABB2 /* GoogleService-Info.plist */; };
+		155CC50E2BD085BF000D1ED8 /* SearchExpertiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155CC50D2BD085BF000D1ED8 /* SearchExpertiseViewController.swift */; };
 		1590744B2BAE29CA00F5E81E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1590744A2BAE29CA00F5E81E /* AppDelegate.swift */; };
 		1590744D2BAE29CA00F5E81E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1590744C2BAE29CA00F5E81E /* SceneDelegate.swift */; };
 		1590744F2BAE29CA00F5E81E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1590744E2BAE29CA00F5E81E /* ViewController.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		05DCB6E9086AD7B3385F7377 /* Pods-iOS_Team7-iOS_Team7UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Team7-iOS_Team7UITests.debug.xcconfig"; path = "Target Support Files/Pods-iOS_Team7-iOS_Team7UITests/Pods-iOS_Team7-iOS_Team7UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		155C64932BC0D13F00FFABB2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		155CC50D2BD085BF000D1ED8 /* SearchExpertiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchExpertiseViewController.swift; sourceTree = "<group>"; };
 		159074472BAE29CA00F5E81E /* iOS_Team7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Team7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1590744A2BAE29CA00F5E81E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1590744C2BAE29CA00F5E81E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		155CC50C2BD08585000D1ED8 /* SearchExpertise */ = {
+			isa = PBXGroup;
+			children = (
+				155CC50D2BD085BF000D1ED8 /* SearchExpertiseViewController.swift */,
+			);
+			path = SearchExpertise;
+			sourceTree = "<group>";
+		};
 		1590743E2BAE29CA00F5E81E = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +220,7 @@
 		44326A512BBF0D9B0042ABD6 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				155CC50C2BD08585000D1ED8 /* SearchExpertise */,
 				44326A5F2BBF13570042ABD6 /* RegisterViewController.swift */,
 				44326A612BBF136C0042ABD6 /* RegisterView.swift */,
 			);
@@ -607,6 +618,7 @@
 				44E5DB1B2BBF26920082742C /* Unauthpost.swift in Sources */,
 				44E5DB1E2BBF27550082742C /* TableViewCell.swift in Sources */,
 				44326A662BBF13910042ABD6 /* LoginView.swift in Sources */,
+				155CC50E2BD085BF000D1ED8 /* SearchExpertiseViewController.swift in Sources */,
 				57003BDB2BC0F26000257816 /* ShowProfileViewController.swift in Sources */,
 				1590744D2BAE29CA00F5E81E /* SceneDelegate.swift in Sources */,
 			);
