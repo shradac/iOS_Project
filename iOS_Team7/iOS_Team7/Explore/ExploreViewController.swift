@@ -14,14 +14,14 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
     
     let exploreViewScreen = ExploreView()
     
-    let post1 = Unauthpost(title: "First Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
-    let post2 = Unauthpost(title: "Second Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-    let post3 = Unauthpost(title: "Third Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
-    let post4 = Unauthpost(title: "Fourth Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
-    let post5 = Unauthpost(title: "Fifth Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-    let post6 = Unauthpost(title: "Sixth Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
-    private var posts: [Unauthpost] = []
-    private var filteredPosts: [Unauthpost] = []
+//    let post1 = Unauthpost(title: "First Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
+//    let post2 = Unauthpost(title: "Second Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
+//    let post3 = Unauthpost(title: "Third Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
+//    let post4 = Unauthpost(title: "Fourth Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
+//    let post5 = Unauthpost(title: "Fifth Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
+//    let post6 = Unauthpost(title: "Sixth Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
+    private var posts: [Authpost] = []
+    private var filteredPosts: [Authpost] = []
     
     override func loadView() {
         view = exploreViewScreen
@@ -75,7 +75,10 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
     
     func showPosts(for text: String) {
         print("while typing", text)
-        filteredPosts = posts.filter { $0.title.lowercased().starts(with: text.lowercased())}
+//        filteredPosts = posts.filter { $0.tags.lowercased().starts(with: text.lowercased())}
+        filteredPosts = posts.filter { post in
+            return post.tags.contains(where: { $0.lowercased().starts(with:(text.lowercased())) })
+        }
         
         // Reload the data of the picker view
         exploreViewScreen.tableView.reloadData()
@@ -108,12 +111,12 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupTableView() {
-        exploreViewScreen.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Unauthpost")
+        exploreViewScreen.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Authpost")
     }
     
-    func fetchPosts(completion: @escaping ([Unauthpost]) -> Void) {
+    func fetchPosts(completion: @escaping ([Authpost]) -> Void) {
         let db = Firestore.firestore()
-        var posts = [Unauthpost]()
+        var posts = [Authpost]()
 
         db.collection("posts").getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -128,8 +131,10 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
                 let content = data["content"] as? String ?? ""
                 let timestamp = (data["timestamp"] as? Timestamp)?.dateValue() ?? Date()
                 let imageUrl = data["image"] as? String ?? ""
+                let tags = data["tags"] as? [String] ?? []
+                let author = data["author"] as? String ?? ""
 
-                let post = Unauthpost(title: title, content: content, timestamp: timestamp, image: imageUrl)
+                let post = Authpost(title: title, content: content, timestamp: timestamp, image: imageUrl, tags:tags, author:author)
                 posts.append(post)
                 print("each", post)
             }
@@ -177,7 +182,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Unauthpost", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Authpost", for: indexPath) as! TableViewCell
         // Check if search text is empty
         if exploreViewScreen.searchBar.text?.isEmpty ?? true {
             // If search text is empty, use posts array

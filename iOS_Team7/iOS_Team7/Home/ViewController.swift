@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     }
     
     private func setupTableView() {
-            homeScreen.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Unauthpost")
+            homeScreen.tableView.register(TableViewCellUnAuthPost.self, forCellReuseIdentifier: "Unauthpost")
     }
 }
 
@@ -63,7 +63,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Unauthpost", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Unauthpost", for: indexPath) as! TableViewCellUnAuthPost
         let post = posts[indexPath.row] // Get the chat group for the current row
         cell.configure(with: post, at: indexPath) // Configure the cell with the chat group
         print("Chat :: ")

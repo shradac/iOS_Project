@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 let img = "https://firebasestorage.googleapis.com:443/v0/b/ioschatapp-db85d.appspot.com/o/userImages%2F0544EA62-604F-46E7-8A00-61949D2385AD.jpg?alt=media&token=213edf7c-4fab-4c83-8c3f-42e85898754d"
 
@@ -13,20 +14,25 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
     
     let feedViewScreen = FeedView()
     
-    let post1 = Unauthpost(title: "First Post", content: "This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.", timestamp: Date(), image: img)
-    let post2 = Unauthpost(title: "Second Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-    let post3 = Unauthpost(title: "Third Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
-    let post4 = Unauthpost(title: "Fourth Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
-    let post5 = Unauthpost(title: "Fifth Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-    let post6 = Unauthpost(title: "Sixth Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
+//    let post1 = Unauthpost(title: "First Post", content: "This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.", timestamp: Date(), image: img)
+//    let post2 = Unauthpost(title: "Second Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
+//    let post3 = Unauthpost(title: "Third Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
+//    let post4 = Unauthpost(title: "Fourth Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
+//    let post5 = Unauthpost(title: "Fifth Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
+//    let post6 = Unauthpost(title: "Sixth Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
 
     
-    private var posts: [Unauthpost] = []
-    private var filteredPosts: [Unauthpost] = []
+    private var posts: [Authpost] = []
+    private var filteredPosts: [Authpost] = []
     
     override func loadView() {
         view = feedViewScreen
-        posts = [post1, post2, post3, post4 , post5 , post6]
+//        fetchPosts { [weak self] fetchedPosts in
+        fetchPosts { [weak self] fetchedPosts in
+                self?.posts = fetchedPosts
+                self?.feedViewScreen.tableView.reloadData() // Reload table view after fetching posts
+        }
+
     }
     
     override func viewDidLoad() {
@@ -71,7 +77,9 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
     
     func showPosts(for text: String) {
         print("while typing", text)
-        filteredPosts = posts.filter { $0.title.lowercased().starts(with: text.lowercased())}
+        filteredPosts = posts.filter { post in
+                return post.tags.contains(where: { $0.lowercased().starts(with:(text.lowercased())) })
+        }
         
         // Reload the data of the picker view
         feedViewScreen.tableView.reloadData()
@@ -106,7 +114,37 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupTableView() {
-        feedViewScreen.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Unauthpost")
+        feedViewScreen.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Authpost")
+    }
+    
+    func fetchPosts(completion: @escaping ([Authpost]) -> Void) {
+        let db = Firestore.firestore()
+        var posts = [Authpost]()
+
+        db.collection("posts").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching posts: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+            print("querySnapshot", querySnapshot!.documents )
+            for document in querySnapshot!.documents {
+                let data = document.data()
+                let title = data["title"] as? String ?? ""
+                let content = data["content"] as? String ?? ""
+                let timestamp = (data["timestamp"] as? Timestamp)?.dateValue() ?? Date()
+                let imageUrl = data["image"] as? String ?? ""
+                let tags = data["tags"] as? [String] ?? []
+                let author = data["author"] as? String ?? ""
+
+                let post = Authpost(title: title, content: content, timestamp: timestamp, image: imageUrl, tags:tags, author:author)
+                posts.append(post)
+                print("each", post)
+            }
+
+            completion(posts)
+            print("posts",posts)
+        }
     }
 }
 
@@ -122,7 +160,7 @@ extension FeedViewController: UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Unauthpost", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Authpost", for: indexPath) as! TableViewCell
         
         if feedViewScreen.searchBar.text?.isEmpty ?? true{
             let post = posts[indexPath.row] // Get the chat group for the current row

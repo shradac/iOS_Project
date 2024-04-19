@@ -257,7 +257,7 @@ class TableViewCell: UITableViewCell {
             ])
     }
 
-    func configure(with post: Unauthpost, at indexPath: IndexPath) {
+    func configure(with post: Authpost, at indexPath: IndexPath) {
         labelTitle.text = post.title
         labelContent.text = post.content
         labelTimestamp.text = formatDate(post.timestamp)
