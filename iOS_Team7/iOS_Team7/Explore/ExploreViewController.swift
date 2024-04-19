@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+
 
 
 class ExploreViewController: UIViewController, UITextFieldDelegate {
@@ -23,7 +25,14 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
     
     override func loadView() {
         view = exploreViewScreen
-        posts = [post1, post2, post3, post4 , post5 , post6]
+//        posts = [post1, post2, post3, post4 , post5 , post6]
+        
+        
+        fetchPosts { [weak self] fetchedPosts in
+                self?.posts = fetchedPosts
+                self?.exploreViewScreen.tableView.reloadData() // Reload table view after fetching posts
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -100,6 +109,34 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
     
     private func setupTableView() {
         exploreViewScreen.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Unauthpost")
+    }
+    
+    func fetchPosts(completion: @escaping ([Unauthpost]) -> Void) {
+        let db = Firestore.firestore()
+        var posts = [Unauthpost]()
+
+        db.collection("posts").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching posts: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+            print("querySnapshot", querySnapshot!.documents )
+            for document in querySnapshot!.documents {
+                let data = document.data()
+                let title = data["title"] as? String ?? ""
+                let content = data["content"] as? String ?? ""
+                let timestamp = (data["timestamp"] as? Timestamp)?.dateValue() ?? Date()
+                let imageUrl = data["image"] as? String ?? ""
+
+                let post = Unauthpost(title: title, content: content, timestamp: timestamp, image: imageUrl)
+                posts.append(post)
+                print("each", post)
+            }
+
+            completion(posts)
+            print("posts",posts)
+        }
     }
 }
 
