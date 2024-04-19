@@ -11,6 +11,7 @@ class FeedView: UIView {
     var imageView: UIImageView!
     var tableView: UITableView!
     var profileBtn: UIButton!
+    var searchBar: UITextField!
 
     
     override init(frame: CGRect) {
@@ -19,11 +20,22 @@ class FeedView: UIView {
             //MARK: set the background color...
             self.backgroundColor = .white
             setupTableView()
+            setUpSearchBar()
             initConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
                 fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setUpSearchBar(){
+        searchBar = UITextField()
+        searchBar.placeholder = "Search Post"
+        searchBar.borderStyle = .roundedRect
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(searchBar)
     }
 
     
@@ -39,8 +51,14 @@ class FeedView: UIView {
     
     func initConstraints() {
            NSLayoutConstraint.activate([
+            
+            searchBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30),
+            searchBar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            searchBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            
                //tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 32 ),
-               tableView.topAnchor.constraint(equalTo: self.topAnchor ),
+               tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 24 ),
             
                tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
                tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),

@@ -9,7 +9,7 @@ import UIKit
 
 let img = "https://firebasestorage.googleapis.com:443/v0/b/ioschatapp-db85d.appspot.com/o/userImages%2F0544EA62-604F-46E7-8A00-61949D2385AD.jpg?alt=media&token=213edf7c-4fab-4c83-8c3f-42e85898754d"
 
-class FeedViewController: UIViewController {
+class FeedViewController: UIViewController, UITextFieldDelegate {
     
     let feedViewScreen = FeedView()
     
@@ -22,6 +22,7 @@ class FeedViewController: UIViewController {
 
     
     private var posts: [Unauthpost] = []
+    private var filteredPosts: [Unauthpost] = []
     
     override func loadView() {
         view = feedViewScreen
@@ -36,11 +37,55 @@ class FeedViewController: UIViewController {
         
         feedViewScreen.tableView.delegate = self
         feedViewScreen.tableView.dataSource = self
+        feedViewScreen.searchBar.delegate=self
         //self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(profileTapped))
         //self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Note", style: .plain, target: self, action: #selector(AddTapped))
         
                 
     }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Ensure we're dealing with the expertiseField
+        
+        guard textField == feedViewScreen.searchBar else {
+            return true
+        }
+
+        // Calculate the new text after the replacement
+        let currentText = textField.text ?? ""
+        guard let newTextRange = Range(range, in: currentText) else {
+            return true
+        }
+        let newText = currentText.replacingCharacters(in: newTextRange, with: string)
+        
+        // Show or hide suggestions based on the new text
+        if !newText.isEmpty {
+            showPosts(for: newText)
+        } else {
+            hidePosts()
+        }
+
+        return true
+    }
+    
+    func showPosts(for text: String) {
+        print("while typing", text)
+        filteredPosts = posts.filter { $0.title.lowercased().starts(with: text.lowercased())}
+        
+        // Reload the data of the picker view
+        feedViewScreen.tableView.reloadData()
+        
+        // Show the picker view
+        feedViewScreen.tableView.isHidden = false
+    }
+
+    func hidePosts() {
+        // Hide the picker view
+//        exploreViewScreen.tableView.isHidden = true
+    }
+    
+    
     
     @objc func feedButtonTapped() {
             print("Feed button tapped")
@@ -68,21 +113,41 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController: UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count // Return the number of chat groups
+        if feedViewScreen.searchBar.text?.isEmpty ?? true{
+            return posts.count
+        }
+        else{
+            return filteredPosts.count // Return the number of chat groups
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Unauthpost", for: indexPath) as! TableViewCell
-        let post = posts[indexPath.row] // Get the chat group for the current row
-        cell.configure(with: post, at: indexPath) // Configure the cell with the chat group
-        print("Chat :: ")
-        print(post)
+        
+        if feedViewScreen.searchBar.text?.isEmpty ?? true{
+            let post = posts[indexPath.row] // Get the chat group for the current row
+            cell.configure(with: post, at: indexPath)
+        } // Configure the cell with the chat group
+//        print("Chat :: ")
+//        print(post)
+        else{
+            let post = filteredPosts[indexPath.row]
+            cell.configure(with: post, at: indexPath)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("REACHED select")
+//        print("REACHED select")
         print(self.posts[indexPath.row]);
+        
+        if feedViewScreen.searchBar.text?.isEmpty ?? true {
+            // If search text is empty, use posts array
+            print(self.posts[indexPath.row])
+        } else {
+            // If search text is not empty, use filteredPosts array
+            print(self.filteredPosts[indexPath.row])
+        }
         //let chatScreenViewController = ChatScreenViewController(chatID: self.chats[indexPath.row].chatID);
              //pushing showProfilController to navigation controller...
             // navigationController?.pushViewController(chatScreenViewController, animated: true)
