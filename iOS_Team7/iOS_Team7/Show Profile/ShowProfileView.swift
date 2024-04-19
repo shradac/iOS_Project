@@ -32,12 +32,12 @@ class ShowProfileView: UIView {
         setupLabelEmail()
         setupLabelRole()
         setupLabelTags()
-        setupLabelAddressHeading()
-        setupLabelAddress1()
-        setupLabelAddress2()
-        setupLabelZip()
+//        setupLabelAddressHeading()
+//        setupLabelAddress1()
+//        setupLabelAddress2()
+//        setupLabelZip()
         setupbuttonLogout()
-        setupbuttonEdit()
+//        setupbuttonEdit()
         initConstraints()
     }
     
@@ -50,11 +50,11 @@ class ShowProfileView: UIView {
     }
     
     func setupbuttonEdit(){
-//        buttonEdit = UIButton(type: .system)
-//        buttonEdit.setTitle("Edit Profile", for: .normal)
-//        buttonEdit.setTitleColor(.systemBlue, for: .normal)
-//        buttonEdit.translatesAutoresizingMaskIntoConstraints = false
-//        self.addSubview(buttonEdit)
+        buttonEdit = UIButton(type: .system)
+        buttonEdit.setTitle("Edit Profile", for: .normal)
+        buttonEdit.setTitleColor(.systemBlue, for: .normal)
+        buttonEdit.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(buttonEdit)
     }
     
     func setupImageProfile(){
@@ -154,25 +154,22 @@ class ShowProfileView: UIView {
             labelTags.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             labelTags.topAnchor.constraint(equalTo: labelRole.bottomAnchor, constant: 16),
             
-            labelAddressHeading.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            labelAddressHeading.topAnchor.constraint(equalTo: labelTags.bottomAnchor, constant: 16),
-            
-            labelAddress1.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            labelAddress1.topAnchor.constraint(equalTo: labelAddressHeading.bottomAnchor, constant: 4),
-//            labelAddress1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            
-            labelAddress2.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            labelAddress2.topAnchor.constraint(equalTo: labelAddress1.bottomAnchor, constant: 0),
-//            labelAddress2.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            
-            labelZip.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            labelZip.topAnchor.constraint(equalTo: labelAddress2.bottomAnchor, constant: 0),
-//            labelZip.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
+//            labelAddressHeading.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+//            labelAddressHeading.topAnchor.constraint(equalTo: labelTags.bottomAnchor, constant: 16),
+//            
+//            labelAddress1.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+//            labelAddress1.topAnchor.constraint(equalTo: labelAddressHeading.bottomAnchor, constant: 4),
+//            
+//            labelAddress2.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+//            labelAddress2.topAnchor.constraint(equalTo: labelAddress1.bottomAnchor, constant: 0),
+//            
+//            labelZip.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+//            labelZip.topAnchor.constraint(equalTo: labelAddress2.bottomAnchor, constant: 0),
             
 //            buttonEdit.topAnchor.constraint(equalTo: labelZip.bottomAnchor, constant: 20),
 //            buttonEdit.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             
-            buttonLogout.topAnchor.constraint(equalTo: labelZip.bottomAnchor, constant: 80),
+            buttonLogout.topAnchor.constraint(equalTo: labelTags.bottomAnchor, constant: 80),
             buttonLogout.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
         ])
     }

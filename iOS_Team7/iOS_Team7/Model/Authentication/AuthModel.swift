@@ -37,6 +37,7 @@ class AuthModel {
                         let email = userData["email"] as? String ?? ""
                         let follows = userData["follows"] as? [String] ?? []
                         let tags = userData["tags"] as? [String] ?? []
+                        let profileImageURL = userData["profileImageURL"] as? String ?? ""
                         
                         // Create a User object with fetched details
                         let user: [String: Any] = [
@@ -44,7 +45,8 @@ class AuthModel {
                             "email": email,
                             "role": role,
                             "follows" : follows,
-                            "tags" : tags
+                            "tags" : tags,
+                            "profileImageURL": profileImageURL
                         ]
                         completion(user, nil)
                     } else {

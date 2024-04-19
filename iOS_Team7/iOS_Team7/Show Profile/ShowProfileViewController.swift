@@ -40,7 +40,7 @@ class ShowProfileViewController: UIViewController {
            let unwrappedEmail = profileInfo.email,
            let unwrappedPhoneNum = profileInfo.phone,
            let uwRole = profileInfo.role,
-           //let unwrappedProfileImage = profileInfo.profileImage,
+           let unwrappedProfileImage = profileInfo.profileImage,
            let unwrappedPhoneType = profileInfo.phoneType,
            let unwrappedAddress1 = profileInfo.address1,
            let unwrappedAddress2 = profileInfo.address2,
@@ -61,6 +61,14 @@ class ShowProfileViewController: UIViewController {
                 showProfileScreen.labelTags.text = "Expertise: " + "\(profileInfo.tags.joined(separator: ", "))"
             }
             
+            if (!unwrappedProfileImage.isEmpty) {
+                if let imageUrl = URL(string: unwrappedProfileImage ?? "") {
+                    loadImage(from: imageUrl)
+                } else {
+                    showProfileScreen.imageProfile.image = UIImage(named: "defaultImage")
+                }
+            }
+//            showProfileScreen.imageProfile.image = profileInfo.profileImage
 //            if (unwrappedProfileImage != nil) {
 //                showProfileScreen.imageProfile.image = unwrappedProfileImage
 //            }
@@ -115,9 +123,14 @@ class ShowProfileViewController: UIViewController {
             
             showProfileScreen.labelRole.text = "Phone: " + "\(unwrappedPhoneNum)" + " (\(unwrappedPhoneType))"
             
-            if (unwrappedProfileImage != nil) {
-                showProfileScreen.imageProfile.image = unwrappedProfileImage
-            }
+//            if (!unwrappedProfileImage.isEmpty) {
+//                if let imageUrl = URL(string: unwrappedProfileImage ?? "") {
+//                    loadImage(from: imageUrl)
+//                } else {
+//                    showProfileScreen.imageProfile.image = UIImage(named: "defaultImage")
+//                }
+////                showProfileScreen.imageProfile.image = unwrappedProfileImage
+//            }
             showProfileScreen.labelAddressHeading.text = "Address:"
             if !unwrappedAddress1.isEmpty{
                 showProfileScreen.labelAddress1.text = unwrappedAddress1
@@ -132,6 +145,23 @@ class ShowProfileViewController: UIViewController {
         
         // TODO: Save the changed profile fields
         
+    }
+    
+    private func loadImage(from url: URL) {
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data = data, error == nil else {
+                // Set default image if loading fails
+                DispatchQueue.main.async {
+                    self?.showProfileScreen.imageProfile.image = UIImage(named: "defaultImage")
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                // Set image from data
+                self?.showProfileScreen.imageProfile.image = UIImage(data: data)
+            }
+        }
+        task.resume()
     }
     
     @objc func onEditBarButtonTapped(){

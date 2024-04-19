@@ -12,6 +12,8 @@ import FirebaseFirestoreInternal
 class HOCTabs: UITabBarController {
 
 //    var profile: Profile = Profile()
+    var imageProfile: UIImageView!
+    
     override func viewDidLoad() {
             super.viewDidLoad()
         
@@ -31,6 +33,7 @@ class HOCTabs: UITabBarController {
             exploreNavVC.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(systemName: "magnifyingglass"), tag: 0)
         
         var role = "user"
+        var profileImg = ""
         AuthModel().getCurrentUserDetails { (userDetails, error) in
             if let error = error {
                 // Handle error
@@ -47,18 +50,26 @@ class HOCTabs: UITabBarController {
                     // Handle error
                     print("Error fetching user details: \(error.localizedDescription)")
                 } else {
+                    if let img = userDetails["profileImageURL"] as? String {
+                        profileImg = img
+                    } else {
+                        profileImg = ""
+                    }
+                    
                     if let roleName = userDetails["role"] as? String {
                         role = roleName
                     } else {
                         role = "user"
                     }
+                    
+                    
                     // Assign user details to variables
                     var userProfile = Profile(
                         name: userDetails["name"] as? String,
                         email: userDetails["email"] as? String,
                         experts: experts,
                         phoneType: "",
-                        profileImage: UIImage(named: "profile_pic"),
+                        profileImage: profileImg,
                         phone: 1234567890,
                         role: role,
                         tags: experts,
@@ -97,6 +108,7 @@ class HOCTabs: UITabBarController {
 //        self.viewControllers = [profileNavVC , exploreNavVC , feedNavVC]
             
         }
+
     
     @objc func AddTapped(){
         let newPostVC = NewPostViewController()

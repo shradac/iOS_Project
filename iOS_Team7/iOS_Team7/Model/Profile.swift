@@ -12,7 +12,7 @@ struct Profile{
     var name: String?
     var email: String?
     var phoneType: String?
-    var profileImage: UIImage?
+    var profileImage: String?
     var phone: Int?
     var role: String?
     var tags: [String]
@@ -25,7 +25,7 @@ struct Profile{
          email: String? = nil,
          experts: [String] = [],
          phoneType: String? = nil,
-         profileImage: UIImage? = nil,
+         profileImage: String? = nil,
          phone: Int? = nil,
          role: String? = nil,
          tags: [String] = [],

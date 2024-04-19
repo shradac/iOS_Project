@@ -34,6 +34,7 @@ class NewPostView: UIView {
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.layer.cornerRadius = 5
+        textView.text = "Enter your content here..."
         textView.font = UIFont.systemFont(ofSize: 15)
         return textView
     }()

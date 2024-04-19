@@ -52,7 +52,7 @@ class EditProfileViewController: UIViewController {
                 editProfileScreen.buttonSelectType.setTitle(unwrappedPhoneType, for: .normal)
             }
             
-            editProfileScreen.buttonTakePhoto.setImage(unwrappedProfileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+//            editProfileScreen.buttonTakePhoto.setImage(unwrappedProfileImage.withRenderingMode(.alwaysOriginal), for: .normal)
             
             if !unwrappedAddress1.isEmpty{
                 editProfileScreen.textFieldAddress1.text = unwrappedAddress1
@@ -211,7 +211,8 @@ class EditProfileViewController: UIViewController {
             let newProfile = Profile(name: unwrappedName,
                                      email: unwrappedEmail,
                                      phoneType: selectedType,
-                                     profileImage: pickedImage ?? (UIImage(systemName: "person.fill"))!,
+//                                     profileImage: pickedImage ?? (UIImage(systemName: "person.fill"))!,
+                                     profileImage: "",
                                      phone: Int(unwrappedPhoneNum),
                                      address1: unwrappedAddress1,
                                      address2: unwrappedAddress2,
