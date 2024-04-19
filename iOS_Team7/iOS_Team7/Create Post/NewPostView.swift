@@ -16,7 +16,7 @@ class NewPostView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Title:"
+        label.text = "Post Title:"
         return label
     }()
     
@@ -28,13 +28,19 @@ class NewPostView: UIView {
         return textField
     }()
     
+    let contentLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Post Content:"
+        return label
+    }()
+    
     let contentTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.layer.cornerRadius = 5
-        textView.text = "Enter your content here..."
         textView.font = UIFont.systemFont(ofSize: 15)
         return textView
     }()
@@ -46,6 +52,18 @@ class NewPostView: UIView {
         imageView.backgroundColor = .lightGray
         imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    let buttonTakePhoto: UIButton = {
+        let button: UIButton!
+        button = UIButton(type: .system)
+        button.setTitle("", for: .normal)
+        button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
+        button.imageView?.contentMode = .scaleAspectFit
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     let saveButton: UIButton = {
@@ -70,8 +88,10 @@ class NewPostView: UIView {
         addSubview(titleLabel)
         addSubview(titleTextField)
         addSubview(contentTextView)
-        addSubview(imageView)
+        addSubview(contentLabel)
+//        addSubview(imageView)
         addSubview(saveButton)
+        addSubview(buttonTakePhoto)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 80),
@@ -82,17 +102,27 @@ class NewPostView: UIView {
             titleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             titleTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20),
+            contentLabel.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20),
+            contentLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            
+            contentTextView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 20),
             contentTextView.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor),
             contentTextView.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor),
             contentTextView.heightAnchor.constraint(equalToConstant: 150),
             
-            imageView.topAnchor.constraint(equalTo: contentTextView.bottomAnchor, constant: 20),
-            imageView.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
+            buttonTakePhoto.topAnchor.constraint(equalTo: contentTextView.bottomAnchor, constant: 20),
+            buttonTakePhoto.leadingAnchor.constraint(equalTo: contentTextView.leadingAnchor),
+            buttonTakePhoto.trailingAnchor.constraint(equalTo: contentTextView.trailingAnchor),
+            buttonTakePhoto.widthAnchor.constraint(equalToConstant: 150),
+            buttonTakePhoto.heightAnchor.constraint(equalToConstant: 150),
             
-            saveButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+//            imageView.topAnchor.constraint(equalTo: buttonTakePhoto.bottomAnchor, constant: 20),
+//            imageView.leadingAnchor.constraint(equalTo: buttonTakePhoto.leadingAnchor),
+//            imageView.trailingAnchor.constraint(equalTo: buttonTakePhoto.trailingAnchor),
+//            imageView.widthAnchor.constraint(equalToConstant: 100), // Adjust width as needed
+//            imageView.heightAnchor.constraint(equalToConstant: 100), // Adjust height as needed
+            
+            saveButton.topAnchor.constraint(equalTo: buttonTakePhoto.bottomAnchor, constant: 20),
             saveButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             saveButton.widthAnchor.constraint(equalToConstant: 100),
             saveButton.heightAnchor.constraint(equalToConstant: 40),

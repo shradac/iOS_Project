@@ -90,9 +90,11 @@ class HOCTabs: UITabBarController {
                     }
                     
                     // Set view controllers
-                    self.viewControllers = [profileNavVC , exploreNavVC , feedNavVC]
+                    self.viewControllers = [feedNavVC, exploreNavVC, profileNavVC]
                 }
             }
+            
+            self.customizeTabBarItems()
         }
         
 //        let profileVC = ShowProfileViewController(profileInfo: self.profile)
@@ -107,6 +109,19 @@ class HOCTabs: UITabBarController {
 //        // Set view controllers
 //        self.viewControllers = [profileNavVC , exploreNavVC , feedNavVC]
             
+        }
+    
+    private func customizeTabBarItems() {
+            // Change the color of tab bar item images
+            if let items = tabBar.items {
+                for item in items {
+                    if let image = item.image {
+                        item.image = image.withRenderingMode(.alwaysOriginal)
+                        item.selectedImage = image.withRenderingMode(.alwaysOriginal)
+                        item.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], for: .selected) // Change the selected color
+                    }
+                }
+            }
         }
 
     
