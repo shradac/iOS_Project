@@ -17,9 +17,11 @@ struct Profile{
     var address1: String?
     var address2: String?
     var address3: String?
+    var experts : [String]
     
     init(name: String? = nil,
          email: String? = nil,
+         experts: [String] = [],
          phoneType: String? = nil,
          profileImage: UIImage? = nil,
          phone: Int? = nil,
@@ -28,6 +30,7 @@ struct Profile{
          address3: String? = nil) {
         self.name = name
         self.email = email
+        self.experts = experts
         self.phoneType = phoneType
         self.profileImage = profileImage
         self.phone = phone

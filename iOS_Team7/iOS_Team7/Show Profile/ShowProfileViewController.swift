@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ShowProfileViewController: UIViewController {
 
@@ -38,7 +39,7 @@ class ShowProfileViewController: UIViewController {
         if let unwrappedName = profileInfo.name,
            let unwrappedEmail = profileInfo.email,
            let unwrappedPhoneNum = profileInfo.phone,
-           let unwrappedProfileImage = profileInfo.profileImage,
+           //let unwrappedProfileImage = profileInfo.profileImage,
            let unwrappedPhoneType = profileInfo.phoneType,
            let unwrappedAddress1 = profileInfo.address1,
            let unwrappedAddress2 = profileInfo.address2,
@@ -50,11 +51,11 @@ class ShowProfileViewController: UIViewController {
                 showProfileScreen.labelEmail.text = "Email: " + unwrappedEmail
             }
             if unwrappedPhoneNum > 0{
-                showProfileScreen.labelPhoneNum.text = "Phone: " + "\(unwrappedPhoneNum)" + unwrappedPhoneType
+                showProfileScreen.labelPhoneNum.text = "Phone: " + "\(unwrappedPhoneNum) (\(unwrappedPhoneType))"
             }
-            if (unwrappedProfileImage != nil) {
-                showProfileScreen.imageProfile.image = unwrappedProfileImage
-            }
+//            if (unwrappedProfileImage != nil) {
+//                showProfileScreen.imageProfile.image = unwrappedProfileImage
+//            }
             showProfileScreen.labelAddressHeading.text = "Address:"
             if !unwrappedAddress1.isEmpty{
                 showProfileScreen.labelAddress1.text = unwrappedAddress1
@@ -65,6 +66,24 @@ class ShowProfileViewController: UIViewController {
             if !unwrappedAddress3.isEmpty{
                 showProfileScreen.labelZip.text = unwrappedAddress3
             }
+        }
+        
+        showProfileScreen.buttonLogout.addTarget(self, action: #selector(logoutBtnTapped), for: .touchUpInside)
+    }
+    
+    @objc func logoutBtnTapped(){
+        do {
+            try Auth.auth().signOut()
+            print("Logout successful")
+            navigationController?.popToRootViewController(animated: true)
+//            self.dismiss(animated: true) {
+//                // Notify the presenting view controller that logout is done
+//                NotificationCenter.default.post(name: NSNotification.Name("logoutCompleted"), object: nil)
+//
+//            }
+        } catch {
+            print("Logout failed with error: \(error.localizedDescription)")
+            showAlert(message: "Logout failed with error: \(error.localizedDescription)")
         }
     }
     
@@ -108,5 +127,11 @@ class ShowProfileViewController: UIViewController {
     @objc func onEditBarButtonTapped(){
         let editProfileController = EditProfileViewController(profileInfo: profileInfo)
         navigationController?.pushViewController(editProfileController, animated: true)
+    }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }

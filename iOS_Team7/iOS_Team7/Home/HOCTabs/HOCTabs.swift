@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestoreInternal
 
 class HOCTabs: UITabBarController {
 
@@ -16,7 +18,7 @@ class HOCTabs: UITabBarController {
         
             navigationItem.hidesBackButton = true
         
-        
+            NotificationCenter.default.addObserver(self, selector: #selector(logoutCompleted), name: NSNotification.Name("logoutCompleted"), object: nil)
             
             // Create LoggedInHomeViewController
             let feedVC = FeedViewController()
@@ -40,24 +42,73 @@ class HOCTabs: UITabBarController {
                 address3: "City, Country"
             )
         
-           let role = "user"
-
-            let profileVC = ShowProfileViewController(profileInfo: profile)
-            let profileNavVC = UINavigationController(rootViewController: profileVC)
-            profileNavVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
-            
-            
-            if(role == "expert"){
-                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Post", style: .plain, target: self, action: #selector(AddTapped))
+        var role = "expert"
+        getCurrentUserDetails { (userDetails, error) in
+            if let error = error {
+                // Handle error
+                print("Error fetching user details: \(error.localizedDescription)")
+            } else {
+                let experts: [String]
+                if let tags = userDetails["tags"] as? [String] {
+                    experts = tags
+                } else {
+                    experts = []
+                }
                 
+                if let error = error {
+                    // Handle error
+                    print("Error fetching user details: \(error.localizedDescription)")
+                } else {
+                    if let roleName = userDetails["tags"] as? String {
+                        role = roleName
+                    } else {
+                        role = "user"
+                    }
+                    // Assign user details to variables
+                    var userProfile = Profile(
+                        name: userDetails["name"] as? String,
+                        email: userDetails["name"] as? String,
+                        experts: experts,
+                        phoneType: "",
+                        profileImage: UIImage(named: "profile_pic"),
+                        phone: 1234567890,
+                        address1: "",
+                        address2: "",
+                        address3: ""
+                    )
+                    
+                    let profileVC = ShowProfileViewController(profileInfo: userProfile)
+                    let profileNavVC = UINavigationController(rootViewController: profileVC)
+                    profileNavVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
+                    
+                    if(role == "expert"){
+                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Post", style: .plain, target: self, action: #selector(self.AddTapped))
+                        
+                    }
+                    
+                    // Set view controllers
+                    self.viewControllers = [profileNavVC , exploreNavVC , feedNavVC]
+                }
             }
+        }
+        
+        let profileVC = ShowProfileViewController(profileInfo: profile)
+        let profileNavVC = UINavigationController(rootViewController: profileVC)
+        profileNavVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
+        
+        if(role == "expert"){
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Post", style: .plain, target: self, action: #selector(self.AddTapped))
             
-            // Set view controllers
-            viewControllers = [profileNavVC , exploreNavVC , feedNavVC]
+        }
+        
+        // Set view controllers
+        self.viewControllers = [profileNavVC , exploreNavVC , feedNavVC]
+            
         }
     
     @objc func AddTapped(){
-        print("navigate to add note")
+        let newPostVC = NewPostViewController()
+        navigationController?.pushViewController(newPostVC, animated: true)
     }
     
     
@@ -67,5 +118,53 @@ class HOCTabs: UITabBarController {
                 selectedViewController.navigationItem.title = item.title
             }
     }
+    
+    @objc func logoutCompleted() {
+        // Dismiss the UITabBarController
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func getCurrentUserDetails(completion: @escaping ([String: Any], Error?) -> Void) {
+            if let currentUser = Auth.auth().currentUser {
+                // Fetch basic user details from Firebase Authentication
+                let name = currentUser.displayName ?? ""
+                let email = currentUser.email ?? ""
+                let uid = currentUser.uid
+                
+                // Query Firestore to fetch additional user details including role
+                let db = Firestore.firestore()
+                let userRef = db.collection("users").document(uid)
+                
+                userRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        // Document found, extract user details including role
+                        let userData = document.data()
+                        let role = userData?["role"] as? String ?? ""
+                        let name = userData?["name"] as? String ?? ""
+                        let email = userData?["email"] as? String ?? ""
+                        let follows = userData?["follows"] as? [String] ?? []
+                        let tags = userData?["name"] as? [String] ?? []
+                        
+                        // Create a User object with fetched details
+                        var user: [String: Any] = [
+                            "name": name,
+                            "email": email,
+                            "role": role,
+                            "follows" : [],
+                            "tags" : tags
+                        ]
+                        completion(user, nil)
+                    } else {
+                        // Document not found or error occurred
+                        let error = error ?? NSError(domain: "User document not found", code: 0, userInfo: nil)
+                        completion([:], error)
+                    }
+                }
+            } else {
+                // No user logged in
+                let error = NSError(domain: "User not logged in", code: 0, userInfo: nil)
+                completion([:], error)
+            }
+        }
 
 }

@@ -17,6 +17,7 @@ class ShowProfileView: UIView {
     var labelAddress1: UILabel!
     var labelAddress2: UILabel!
     var labelZip: UILabel!
+    var buttonLogout: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +33,16 @@ class ShowProfileView: UIView {
         setupLabelAddress1()
         setupLabelAddress2()
         setupLabelZip()
+        setupbuttonLogout()
         initConstraints()
+    }
+    
+    func setupbuttonLogout(){
+        buttonLogout = UIButton(type: .system)
+        buttonLogout.setTitle("Logout", for: .normal)
+        buttonLogout.setTitleColor(.systemRed, for: .normal)
+        buttonLogout.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(buttonLogout)
     }
     
     func setupImageProfile(){
@@ -136,6 +146,9 @@ class ShowProfileView: UIView {
             labelZip.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             labelZip.topAnchor.constraint(equalTo: labelAddress2.bottomAnchor, constant: 0),
 //            labelZip.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
+            
+            buttonLogout.topAnchor.constraint(equalTo: labelZip.bottomAnchor, constant: 72),
+            buttonLogout.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
         ])
     }
     
