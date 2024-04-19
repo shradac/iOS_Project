@@ -13,6 +13,53 @@ import FirebaseStorage
 
 class AuthModel {
     
+    // Function to update the current user's 'follow' list
+    func followPost(for postTitle: String, completion: @escaping (Error?) -> Void) {
+        getCurrentUserDetails { userDetails, error in
+            guard error == nil else {
+                completion(error)
+                return
+            }
+
+            var updatedFollows = userDetails["follows"] as? [String] ?? []
+            // Check if the post title is not already in the 'follows' list
+            if !updatedFollows.contains(postTitle) {
+                updatedFollows.append(postTitle)
+                let db = Firestore.firestore()
+                let email = userDetails["email"] as? String ?? ""
+                
+                // Query Firestore to find the user document using email
+                let usersRef = db.collection("users")
+                let query = usersRef.whereField("email", isEqualTo: email)
+                
+                query.getDocuments { (querySnapshot, error) in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+                    
+                    // Check if any document matches the query
+                    if let document = querySnapshot?.documents.first {
+                        // Document found, update 'follows' field
+                        document.reference.updateData(["follows": updatedFollows]) { error in
+                            if let error = error {
+                                completion(error)
+                            } else {
+                                completion(nil)
+                            }
+                        }
+                    } else {
+                        let error = NSError(domain: "User document not found", code: 0, userInfo: nil)
+                        completion(error)
+                    }
+                }
+            } else {
+                // Post title already exists in 'follows' list
+                completion(nil)
+            }
+        }
+    }
+    
     func getCurrentUserDetails(completion: @escaping ([String: Any], Error?) -> Void) {
         if let currentUser = Auth.auth().currentUser {
             // Fetch basic user details from Firebase Authentication

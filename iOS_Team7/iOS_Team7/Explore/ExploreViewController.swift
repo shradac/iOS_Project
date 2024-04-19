@@ -13,13 +13,6 @@ import FirebaseFirestore
 class ExploreViewController: UIViewController, UITextFieldDelegate {
     
     let exploreViewScreen = ExploreView()
-    
-//    let post1 = Unauthpost(title: "First Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
-//    let post2 = Unauthpost(title: "Second Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-//    let post3 = Unauthpost(title: "Third Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
-//    let post4 = Unauthpost(title: "Fourth Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
-//    let post5 = Unauthpost(title: "Fifth Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-//    let post6 = Unauthpost(title: "Sixth Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
     private var posts: [Authpost] = []
     private var filteredPosts: [Authpost] = []
     
@@ -183,6 +176,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Authpost", for: indexPath) as! ExploreTableViewCell
+        cell.delegate = self
+        cell.indexPath = indexPath
+        cell.post = posts[indexPath.row]
+        
         // Check if search text is empty
         if exploreViewScreen.searchBar.text?.isEmpty ?? true {
             // If search text is empty, use posts array
@@ -207,5 +204,35 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             print(self.filteredPosts[indexPath.row])
         }
         // Perform any actions you need when a row is selected
+    }
+}
+
+extension ExploreViewController: ExploreTableViewCellDelegate {
+    func followButtonTapped(for post: Authpost) {
+        // Fetch post data for the specific post
+        print("Follow button tapped for post: \(post)")
+        AuthModel().followPost(for: post.title) { error in
+            if let error = error {
+                print("Error following post: \(error.localizedDescription)")
+                // Handle error if needed
+            } else {
+                print("Successfully followed post: \(post.title)")
+                // Update UI of the corresponding cell
+                DispatchQueue.main.async {
+                    if let visibleIndexPaths = self.exploreViewScreen.tableView.indexPathsForVisibleRows {
+                        for indexPath in visibleIndexPaths {
+                            let cell = self.exploreViewScreen.tableView.cellForRow(at: indexPath) as? ExploreTableViewCell
+                            if let cellPost = cell?.post, cellPost.title == post.title {
+                                cell?.followButton.setTitle("Following", for: .normal)
+                                cell?.followButton.isEnabled = false // Disable the button
+                                // Optionally, you can update the button's appearance
+                                cell?.followButton.setTitleColor(.gray, for: .normal)
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
