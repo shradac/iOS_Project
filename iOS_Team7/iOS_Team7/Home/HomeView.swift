@@ -46,7 +46,7 @@ class HomeView: UIView {
             tableView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(tableView)
             
-            tableView.register(TableViewCell.self, forCellReuseIdentifier: "Unauthpost")
+            tableView.register(TableViewCellUnAuthPost.self, forCellReuseIdentifier: "Unauthpost")
     }
     
     
@@ -103,10 +103,5 @@ class HomeView: UIView {
                tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
            ])
     }
-
-
-
-
-
 
 }

@@ -44,7 +44,7 @@ class FeedView: UIView {
             tableView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(tableView)
             
-            tableView.register(TableViewCell.self, forCellReuseIdentifier: "Unauthpost")
+            tableView.register(TableViewCell.self, forCellReuseIdentifier: "Authpost")
     }
 
 
