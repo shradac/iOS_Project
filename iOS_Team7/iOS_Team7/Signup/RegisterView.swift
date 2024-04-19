@@ -99,6 +99,7 @@ class RegisterView: UIView {
     func setupbuttonSelectRoleType(){
         buttonSelectRoleType = UIButton(type: .system)
         buttonSelectRoleType.setTitle("Expert", for: .normal)
+        buttonSelectRoleType.showsMenuAsPrimaryAction = true
         buttonSelectRoleType.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(buttonSelectRoleType)
     }
@@ -110,6 +111,7 @@ class RegisterView: UIView {
             buttonTakePhoto.contentHorizontalAlignment = .fill
             buttonTakePhoto.contentVerticalAlignment = .fill
             buttonTakePhoto.imageView?.contentMode = .scaleAspectFit
+            buttonTakePhoto.showsMenuAsPrimaryAction = true
             buttonTakePhoto.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(buttonTakePhoto)
     }
