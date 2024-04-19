@@ -12,11 +12,13 @@ class ShowProfileView: UIView {
     var imageProfile: UIImageView!
     var labelName: UILabel!
     var labelEmail: UILabel!
-    var labelPhoneNum: UILabel!
+    var labelRole: UILabel!
+    var labelTags: UILabel!
     var labelAddressHeading: UILabel!
     var labelAddress1: UILabel!
     var labelAddress2: UILabel!
     var labelZip: UILabel!
+    var buttonEdit: UIButton!
     var buttonLogout: UIButton!
     
     override init(frame: CGRect) {
@@ -28,12 +30,14 @@ class ShowProfileView: UIView {
         setupImageProfile()
         setupLabelName()
         setupLabelEmail()
-        setupLabelPhoneNum()
+        setupLabelRole()
+        setupLabelTags()
         setupLabelAddressHeading()
         setupLabelAddress1()
         setupLabelAddress2()
         setupLabelZip()
         setupbuttonLogout()
+        setupbuttonEdit()
         initConstraints()
     }
     
@@ -43,6 +47,14 @@ class ShowProfileView: UIView {
         buttonLogout.setTitleColor(.systemRed, for: .normal)
         buttonLogout.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(buttonLogout)
+    }
+    
+    func setupbuttonEdit(){
+//        buttonEdit = UIButton(type: .system)
+//        buttonEdit.setTitle("Edit Profile", for: .normal)
+//        buttonEdit.setTitleColor(.systemBlue, for: .normal)
+//        buttonEdit.translatesAutoresizingMaskIntoConstraints = false
+//        self.addSubview(buttonEdit)
     }
     
     func setupImageProfile(){
@@ -71,11 +83,18 @@ class ShowProfileView: UIView {
         self.addSubview(labelEmail)
     }
     
-    func setupLabelPhoneNum(){
-        labelPhoneNum = UILabel()
-        labelPhoneNum.textColor = .black
-        labelPhoneNum.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelPhoneNum)
+    func setupLabelRole(){
+        labelRole = UILabel()
+        labelRole.textColor = .black
+        labelRole.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelRole)
+    }
+    
+    func setupLabelTags(){
+        labelTags = UILabel()
+        labelTags.textColor = .black
+        labelTags.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelTags)
     }
     
     func setupLabelAddressHeading(){
@@ -128,12 +147,15 @@ class ShowProfileView: UIView {
             labelEmail.topAnchor.constraint(equalTo: labelName.bottomAnchor, constant: 28),
 //            labelEmail.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             
-            labelPhoneNum.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            labelPhoneNum.topAnchor.constraint(equalTo: labelEmail.bottomAnchor, constant: 16),
+            labelRole.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            labelRole.topAnchor.constraint(equalTo: labelEmail.bottomAnchor, constant: 16),
 //            labelPhoneNum.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             
+            labelTags.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            labelTags.topAnchor.constraint(equalTo: labelRole.bottomAnchor, constant: 16),
+            
             labelAddressHeading.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            labelAddressHeading.topAnchor.constraint(equalTo: labelPhoneNum.bottomAnchor, constant: 16),
+            labelAddressHeading.topAnchor.constraint(equalTo: labelTags.bottomAnchor, constant: 16),
             
             labelAddress1.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             labelAddress1.topAnchor.constraint(equalTo: labelAddressHeading.bottomAnchor, constant: 4),
@@ -147,7 +169,10 @@ class ShowProfileView: UIView {
             labelZip.topAnchor.constraint(equalTo: labelAddress2.bottomAnchor, constant: 0),
 //            labelZip.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
             
-            buttonLogout.topAnchor.constraint(equalTo: labelZip.bottomAnchor, constant: 72),
+//            buttonEdit.topAnchor.constraint(equalTo: labelZip.bottomAnchor, constant: 20),
+//            buttonEdit.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            
+            buttonLogout.topAnchor.constraint(equalTo: labelZip.bottomAnchor, constant: 80),
             buttonLogout.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
         ])
     }

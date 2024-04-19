@@ -43,7 +43,7 @@ class ExploreView: UIView {
             tableView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(tableView)
             
-            tableView.register(TableViewCell.self, forCellReuseIdentifier: "Authpost")
+            tableView.register(ExploreTableViewCell.self, forCellReuseIdentifier: "Authpost")
     }
 
 

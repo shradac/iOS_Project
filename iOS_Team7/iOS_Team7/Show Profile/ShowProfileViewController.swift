@@ -31,14 +31,15 @@ class ShowProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .edit, target: self,
-            action: #selector(onEditBarButtonTapped)
-        )
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(
+//            barButtonSystemItem: .edit, target: self,
+//            action: #selector(onEditBarButtonTapped)
+//        )
 
         if let unwrappedName = profileInfo.name,
            let unwrappedEmail = profileInfo.email,
            let unwrappedPhoneNum = profileInfo.phone,
+           let uwRole = profileInfo.role,
            //let unwrappedProfileImage = profileInfo.profileImage,
            let unwrappedPhoneType = profileInfo.phoneType,
            let unwrappedAddress1 = profileInfo.address1,
@@ -50,32 +51,41 @@ class ShowProfileViewController: UIViewController {
             if !unwrappedEmail.isEmpty{
                 showProfileScreen.labelEmail.text = "Email: " + unwrappedEmail
             }
-            if unwrappedPhoneNum > 0{
-                showProfileScreen.labelPhoneNum.text = "Phone: " + "\(unwrappedPhoneNum) (\(unwrappedPhoneType))"
+//            if unwrappedPhoneNum > 0{
+//                showProfileScreen.labelRole.text = "Phone: " + "\(unwrappedPhoneNum))"
+//            }
+            if !uwRole.isEmpty{
+                showProfileScreen.labelRole.text = "Role: " + "\(uwRole)"
             }
+            if (!profileInfo.tags.isEmpty) {
+                showProfileScreen.labelTags.text = "Expertise: " + "\(profileInfo.tags.joined(separator: ", "))"
+            }
+            
 //            if (unwrappedProfileImage != nil) {
 //                showProfileScreen.imageProfile.image = unwrappedProfileImage
 //            }
-            showProfileScreen.labelAddressHeading.text = "Address:"
-            if !unwrappedAddress1.isEmpty{
-                showProfileScreen.labelAddress1.text = unwrappedAddress1
-            }
-            if !unwrappedAddress2.isEmpty{
-                showProfileScreen.labelAddress2.text = unwrappedAddress2
-            }
-            if !unwrappedAddress3.isEmpty{
-                showProfileScreen.labelZip.text = unwrappedAddress3
-            }
+//            showProfileScreen.labelAddressHeading.text = "Address:"
+//            if !unwrappedAddress1.isEmpty{
+//                showProfileScreen.labelAddress1.text = unwrappedAddress1
+//            }
+//            if !unwrappedAddress2.isEmpty{
+//                showProfileScreen.labelAddress2.text = unwrappedAddress2
+//            }
+//            if !unwrappedAddress3.isEmpty{
+//                showProfileScreen.labelZip.text = unwrappedAddress3
+//            }
         }
         
         showProfileScreen.buttonLogout.addTarget(self, action: #selector(logoutBtnTapped), for: .touchUpInside)
+//        showProfileScreen.buttonEdit.addTarget(self, action: #selector(onEditBarButtonTapped), for: .touchUpInside)
     }
     
     @objc func logoutBtnTapped(){
         do {
             try Auth.auth().signOut()
             print("Logout successful")
-            navigationController?.popToRootViewController(animated: true)
+            NotificationCenter.default.post(name: NSNotification.Name("logoutCompleted"), object: nil)
+//            navigationController?.popToRootViewController(animated: true)
 //            self.dismiss(animated: true) {
 //                // Notify the presenting view controller that logout is done
 //                NotificationCenter.default.post(name: NSNotification.Name("logoutCompleted"), object: nil)
@@ -103,7 +113,7 @@ class ShowProfileViewController: UIViewController {
                 showProfileScreen.labelEmail.text = "Email: " + unwrappedEmail
             }
             
-            showProfileScreen.labelPhoneNum.text = "Phone: " + "\(unwrappedPhoneNum)" + " (\(unwrappedPhoneType))"
+            showProfileScreen.labelRole.text = "Phone: " + "\(unwrappedPhoneNum)" + " (\(unwrappedPhoneType))"
             
             if (unwrappedProfileImage != nil) {
                 showProfileScreen.imageProfile.image = unwrappedProfileImage

@@ -30,35 +30,63 @@ class NewPostViewController: UIViewController {
         let postTitle = newPostScreen.titleTextField.text ?? ""
         let postContent = newPostScreen.contentTextView.text ?? ""
 //        let postImage = newPostScreen.imageView.image!
+        var author = ""
+        var tags: [String] = []
         
         if postTitle.isEmpty || postContent.isEmpty {
             showAlert(message: "Title or content cannot be empty.")
             return
         }
         
-        let newPost = Unauthpost(title: postTitle, content: postContent, timestamp: Date.now, image: "")
-                
-        // Create a new post
-        let db = Firestore.firestore()
-                
-        let postData: [String: Any] = [
-            "title": newPost.title,
-            "content": newPost.content,
-            "timestamp": newPost.timestamp,
-            "image": newPost.image
-        ]
-        
-        db.collection("posts").addDocument(data: postData) { error in
+        // Get tags and author name from current user
+        AuthModel().getCurrentUserDetails { (userDetails, error) in
             if let error = error {
-                // Handle error while adding document
-                print("Error adding document: \(error)")
+                // Handle error
+                print("Error fetching user details: \(error.localizedDescription)")
             } else {
-                // Post added successfully
-                print("Document added successfully")
+                if let error = error {
+                    // Handle error
+                    print("Error fetching user details: \(error.localizedDescription)")
+                } else {
+                    if let name = userDetails["name"] as? String {
+                        author = name
+                    } else {
+                        author = ""
+                    }
+                    
+                    if let experts = userDetails["tags"] as? [String] {
+                        tags = experts
+                    } else {
+                        tags = []
+                    }
+                }
+                
+                let newPost = Authpost(title: postTitle, content: postContent, timestamp: Date.now, image: "", tags: tags, author: author)
+                
+                // Create a new post
+                let db = Firestore.firestore()
+                let postData: [String: Any] = [
+                    "title": newPost.title,
+                    "content": newPost.content,
+                    "timestamp": newPost.timestamp,
+                    "image": newPost.image,
+                    "tags": newPost.tags,
+                    "author": newPost.author
+                ]
+                
+                db.collection("posts").addDocument(data: postData) { error in
+                    if let error = error {
+                        // Handle error while adding document
+                        print("Error adding document: \(error)")
+                    } else {
+                        // Post added successfully
+                        print("Document added successfully")
+                    }
+                }
+                        
+                self.navigationController?.popViewController(animated: true)
             }
         }
-                
-        navigationController?.popViewController(animated: true)
     }
     
     private func showAlert(message: String) {

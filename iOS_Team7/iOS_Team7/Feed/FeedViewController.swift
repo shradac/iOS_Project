@@ -114,7 +114,7 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupTableView() {
-        feedViewScreen.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Authpost")
+        feedViewScreen.tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "Authpost")
     }
     
     func fetchPosts(completion: @escaping ([Authpost]) -> Void) {
@@ -160,7 +160,7 @@ extension FeedViewController: UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Authpost", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Authpost", for: indexPath) as! FeedTableViewCell
         
         if feedViewScreen.searchBar.text?.isEmpty ?? true{
             let post = posts[indexPath.row] // Get the chat group for the current row

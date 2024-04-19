@@ -111,7 +111,7 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupTableView() {
-        exploreViewScreen.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Authpost")
+        exploreViewScreen.tableView.register(ExploreTableViewCell.self, forCellReuseIdentifier: "Authpost")
     }
     
     func fetchPosts(completion: @escaping ([Authpost]) -> Void) {
@@ -182,7 +182,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Authpost", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Authpost", for: indexPath) as! ExploreTableViewCell
         // Check if search text is empty
         if exploreViewScreen.searchBar.text?.isEmpty ?? true {
             // If search text is empty, use posts array

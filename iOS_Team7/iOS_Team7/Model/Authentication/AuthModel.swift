@@ -12,6 +12,55 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class AuthModel {
+    
+    func getCurrentUserDetails(completion: @escaping ([String: Any], Error?) -> Void) {
+        if let currentUser = Auth.auth().currentUser {
+            // Fetch basic user details from Firebase Authentication
+            let email = currentUser.email ?? ""
+            
+            // Query Firestore to fetch additional user details including role using email
+            let db = Firestore.firestore()
+            let usersRef = db.collection("users")
+            let query = usersRef.whereField("email", isEqualTo: email)
+            
+            query.getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    // Error occurred
+                    completion([:], error)
+                } else {
+                    // Check if any document matches the query
+                    if let document = querySnapshot?.documents.first {
+                        // Document found, extract user details including role
+                        let userData = document.data()
+                        let role = userData["role"] as? String ?? ""
+                        let name = userData["name"] as? String ?? ""
+                        let email = userData["email"] as? String ?? ""
+                        let follows = userData["follows"] as? [String] ?? []
+                        let tags = userData["tags"] as? [String] ?? []
+                        
+                        // Create a User object with fetched details
+                        let user: [String: Any] = [
+                            "name": name,
+                            "email": email,
+                            "role": role,
+                            "follows" : follows,
+                            "tags" : tags
+                        ]
+                        completion(user, nil)
+                    } else {
+                        // Document not found
+                        let error = NSError(domain: "User document not found", code: 0, userInfo: nil)
+                        completion([:], error)
+                    }
+                }
+            }
+        } else {
+            // No user logged in
+            let error = NSError(domain: "User not logged in", code: 0, userInfo: nil)
+            completion([:], error)
+        }
+    }
+    
     // Create a new user in Firestore
     func createUser(name: String, email: String, imageData: Data?, role: String, tags: [String], completion: @escaping (User?, Error?) -> Void) {
         let db = Firestore.firestore()
