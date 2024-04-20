@@ -9,13 +9,14 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestoreInternal
 
-class HOCTabs: UITabBarController {
+class HOCTabs: UITabBarController, UITabBarControllerDelegate {
 
 //    var profile: Profile = Profile()
     var imageProfile: UIImageView!
     
     override func viewDidLoad() {
             super.viewDidLoad()
+            self.delegate = self
         
             self.navigationItem.title = ""
         
@@ -144,4 +145,26 @@ class HOCTabs: UITabBarController {
         navigationController?.popToRootViewController(animated: true)
     }
 
+}
+
+extension HOCTabs {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if let index = tabBarController.viewControllers?.firstIndex(of: viewController), index == 0 {
+            // If the selected view controller is the first one (FeedViewController)
+            if let feedNavVC = viewController as? UINavigationController,
+               let feedVC = feedNavVC.viewControllers.first as? FeedViewController {
+                // Reload table data in the FeedViewController
+                feedVC.reloadTableData()
+            }
+        }
+        
+        if let index = tabBarController.viewControllers?.firstIndex(of: viewController), index == 1 {
+            // If the selected view controller is the first one (FeedViewController)
+            if let exploreNavVC = viewController as? UINavigationController,
+               let exploreNavVC = exploreNavVC.viewControllers.first as? ExploreViewController {
+                // Reload table data in the ExploreViewController
+                exploreNavVC.reloadTableData()
+            }
+        }
+    }
 }

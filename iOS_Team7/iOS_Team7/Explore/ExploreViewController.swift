@@ -42,6 +42,13 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Note", style: .plain, target: self, action: #selector(AddTapped))
     }
     
+    func reloadTableData() {
+        fetchPosts { [weak self] fetchedPosts in
+            self?.posts = fetchedPosts
+            self?.exploreViewScreen.tableView.reloadData()
+        }
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Ensure we're dealing with the expertiseField
         
