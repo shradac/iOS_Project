@@ -11,12 +11,29 @@ class ViewController: UIViewController {
     
     let homeScreen = HomeView()
     
-    let post1 = Unauthpost(title: "First Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
-    let post2 = Unauthpost(title: "Second Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-    let post3 = Unauthpost(title: "Third Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
-    let post4 = Unauthpost(title: "Fourth Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
-    let post5 = Unauthpost(title: "Fifth Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-    let post6 = Unauthpost(title: "Sixth Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
+//    let post1 = Unauthpost(title: "First Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
+    
+    let post1 = Unauthpost(title: "Tips for Maintaining Good Skin Health", content: "To maintain good skin health, it's essential to follow a consistent skincare routine tailored to your skin type. Cleansing, moisturizing, and using sunscreen daily can help protect your skin from environmental damage and premature aging. Exfoliating regularly can also help remove dead skin cells and promote cell turnover, revealing a brighter, more radiant complexion.", timestamp: Date(), image: img
+    )
+    
+    let post2 = Unauthpost(
+       title: "Incorporating Exercise into Your Lifestyle",
+       content: "Regular exercise is crucial for maintaining overall physical and mental well-being. Incorporating a combination of cardiovascular exercises, strength training, and flexibility exercises into your routine can help improve cardiovascular health, build muscle strength, increase endurance, and reduce the risk of chronic diseases. Aim for at least 150 minutes of moderate-intensity aerobic activity or 75 minutes of vigorous-intensity aerobic activity per week, along with two or more days of strength training exercises.",
+       timestamp: Date(),
+       image: img
+       
+    )
+    
+    
+    let post3 = Unauthpost(
+       title: "Understanding and Managing Mental Illnesses",
+       content: "Mental health is an essential aspect of overall well-being. Mental illnesses like depression, anxiety, and bipolar disorder can have a significant impact on daily life and functioning. Seeking professional help from a mental health provider, such as a therapist or counselor, can provide valuable support and evidence-based treatments. In addition, practicing self-care strategies like mindfulness, exercise, and maintaining a healthy lifestyle can also contribute to better mental health management.",
+       timestamp: Date(),
+       image: img
+    )
+
+    
+    
     
     private var posts: [Unauthpost] = []
 
@@ -24,7 +41,7 @@ class ViewController: UIViewController {
     
     override func loadView() {
            view = homeScreen
-           posts = [post1, post2, post3, post4 , post5 , post6]
+           posts = [post1, post2, post3]
     }
     
     

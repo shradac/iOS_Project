@@ -121,7 +121,7 @@ class TableViewCellUnAuthPost: UITableViewCell {
         labelTitle.text = post.title
         labelContent.text = post.content
         labelTimestamp.text = formatDate(post.timestamp)
-        createdByLabel.text = "Created By Nitin" // Update with actual creator
+        createdByLabel.text = "Created By Dr Micheal Johnson" // Update with actual creator
         if let imageUrl = URL(string: post.image ?? "") {
             loadImage(from: imageUrl)
         } else {
