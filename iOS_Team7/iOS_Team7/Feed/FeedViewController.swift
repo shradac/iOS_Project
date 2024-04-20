@@ -125,6 +125,12 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
             
             let follows = userDetails["follows"] as? [String] ?? []
             
+            if follows.isEmpty {
+                // If follows array is empty, call the completion handler with an empty array
+                completion([])
+                return
+            }
+            
             let db = Firestore.firestore()
             var posts = [Authpost]()
             
@@ -153,6 +159,7 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+
 //    func fetchPosts(completion: @escaping ([Authpost]) -> Void) {
 //        let db = Firestore.firestore()
 //        var posts = [Authpost]()
