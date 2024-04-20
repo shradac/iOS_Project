@@ -14,14 +14,6 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
     
     let feedViewScreen = FeedView()
     
-//    let post1 = Unauthpost(title: "First Post", content: "This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.This is the content of the first post.", timestamp: Date(), image: img)
-//    let post2 = Unauthpost(title: "Second Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-//    let post3 = Unauthpost(title: "Third Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
-//    let post4 = Unauthpost(title: "Fourth Post", content: "This is the content of the first post.", timestamp: Date(), image: img)
-//    let post5 = Unauthpost(title: "Fifth Post", content: "This is the content of the second post.", timestamp: Date().addingTimeInterval(3600), image: img)
-//    let post6 = Unauthpost(title: "Sixth Post", content: "This is the content of the third post.", timestamp: Date().addingTimeInterval(7200), image: img)
-
-    
     private var posts: [Authpost] = []
     private var filteredPosts: [Authpost] = []
     
@@ -46,8 +38,6 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
         feedViewScreen.searchBar.delegate=self
         //self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(profileTapped))
         //self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Note", style: .plain, target: self, action: #selector(AddTapped))
-        
-                
     }
     
     
@@ -117,35 +107,74 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
         feedViewScreen.tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "Authpost")
     }
     
+    
     func fetchPosts(completion: @escaping ([Authpost]) -> Void) {
-        let db = Firestore.firestore()
-        var posts = [Authpost]()
-
-        db.collection("posts").getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching posts: \(error.localizedDescription)")
+        AuthModel().getCurrentUserDetails { userDetails, error in
+            guard error == nil else {
+                print("Error fetching current user details: \(error?.localizedDescription ?? "Unknown error")")
                 completion([])
                 return
             }
-            print("querySnapshot", querySnapshot!.documents )
-            for document in querySnapshot!.documents {
-                let data = document.data()
-                let title = data["title"] as? String ?? ""
-                let content = data["content"] as? String ?? ""
-                let timestamp = (data["timestamp"] as? Timestamp)?.dateValue() ?? Date()
-                let imageUrl = data["image"] as? String ?? ""
-                let tags = data["tags"] as? [String] ?? []
-                let author = data["author"] as? String ?? ""
-
-                let post = Authpost(title: title, content: content, timestamp: timestamp, image: imageUrl, tags:tags, author:author)
-                posts.append(post)
-                print("each", post)
+            
+            let follows = userDetails["follows"] as? [String] ?? []
+            
+            let db = Firestore.firestore()
+            var posts = [Authpost]()
+            
+            // Fetch posts where the title is in the follows list
+            db.collection("posts").whereField("title", in: follows).getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching posts: \(error.localizedDescription)")
+                    completion([])
+                    return
+                }
+                
+                for document in querySnapshot!.documents {
+                    let data = document.data()
+                    let title = data["title"] as? String ?? ""
+                    let content = data["content"] as? String ?? ""
+                    let timestamp = (data["timestamp"] as? Timestamp)?.dateValue() ?? Date()
+                    let imageUrl = data["image"] as? String ?? ""
+                    let tags = data["tags"] as? [String] ?? []
+                    let author = data["author"] as? String ?? ""
+                    
+                    let post = Authpost(title: title, content: content, timestamp: timestamp, image: imageUrl, tags:tags, author:author)
+                    posts.append(post)
+                }
+                
+                completion(posts)
             }
-
-            completion(posts)
-            print("posts",posts)
         }
     }
+//    func fetchPosts(completion: @escaping ([Authpost]) -> Void) {
+//        let db = Firestore.firestore()
+//        var posts = [Authpost]()
+//
+//        db.collection("posts").getDocuments { (querySnapshot, error) in
+//            if let error = error {
+//                print("Error fetching posts: \(error.localizedDescription)")
+//                completion([])
+//                return
+//            }
+//            print("querySnapshot", querySnapshot!.documents )
+//            for document in querySnapshot!.documents {
+//                let data = document.data()
+//                let title = data["title"] as? String ?? ""
+//                let content = data["content"] as? String ?? ""
+//                let timestamp = (data["timestamp"] as? Timestamp)?.dateValue() ?? Date()
+//                let imageUrl = data["image"] as? String ?? ""
+//                let tags = data["tags"] as? [String] ?? []
+//                let author = data["author"] as? String ?? ""
+//
+//                let post = Authpost(title: title, content: content, timestamp: timestamp, image: imageUrl, tags:tags, author:author)
+//                posts.append(post)
+//                print("each", post)
+//            }
+//
+//            completion(posts)
+//            print("posts",posts)
+//        }
+//    }
 }
 
 

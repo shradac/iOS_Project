@@ -392,40 +392,6 @@ class FeedTableViewCell: UITableViewCell {
     }
 
     func initConstraints() {
-//        NSLayoutConstraint.activate([
-//                wrapperCellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-//                wrapperCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-//                wrapperCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-//                wrapperCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-//
-//                labelTitle.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 12),
-//                labelTitle.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-//                labelTitle.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
-//
-//                followButton.topAnchor.constraint(equalTo: labelTitle.topAnchor, constant: 8),
-//                followButton.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-//                followButton.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
-//
-//                imageProfile.topAnchor.constraint(equalTo: followButton.bottomAnchor, constant: 8),
-//                imageProfile.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-//                imageProfile.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: 16),
-//                imageProfile.widthAnchor.constraint(equalToConstant: 300),
-//                imageProfile.heightAnchor.constraint(equalToConstant: 200),
-//
-//
-//                labelContent.topAnchor.constraint(equalTo: imageProfile.bottomAnchor, constant: 8),
-//                labelContent.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-//                labelContent.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
-//
-//                labelTimestamp.topAnchor.constraint(equalTo: labelContent.bottomAnchor, constant: 8),
-//                labelTimestamp.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-//                labelTimestamp.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
-//
-//                createdByLabel.topAnchor.constraint(equalTo: labelTimestamp.bottomAnchor, constant: 8),
-//                createdByLabel.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
-//                createdByLabel.bottomAnchor.constraint(equalTo: wrapperCellView.bottomAnchor, constant: -16)
-//            ])
-        
         NSLayoutConstraint.activate([
                 wrapperCellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
                 wrapperCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
