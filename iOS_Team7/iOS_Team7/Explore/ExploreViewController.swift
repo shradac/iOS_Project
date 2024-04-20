@@ -112,13 +112,15 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
         var posts = [Authpost]()
 
         db.collection("posts").getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching posts: \(error.localizedDescription)")
+            guard let querySnapshot = querySnapshot, error == nil else {
+                print("Error fetching posts: \(error?.localizedDescription ?? "Unknown error")")
                 completion([])
                 return
             }
-            print("querySnapshot", querySnapshot!.documents )
-            for document in querySnapshot!.documents {
+            
+            let dispatchGroup = DispatchGroup()
+            
+            for document in querySnapshot.documents {
                 let data = document.data()
                 let title = data["title"] as? String ?? ""
                 let content = data["content"] as? String ?? ""
@@ -126,41 +128,35 @@ class ExploreViewController: UIViewController, UITextFieldDelegate {
                 let imageUrl = data["image"] as? String ?? ""
                 let tags = data["tags"] as? [String] ?? []
                 let author = data["author"] as? String ?? ""
-
+                
                 let post = Authpost(title: title, content: content, timestamp: timestamp, image: imageUrl, tags:tags, author:author)
                 posts.append(post)
-                print("each", post)
+                
+                dispatchGroup.enter()
+                // Fetch current user's details for each post
+                AuthModel().getCurrentUserDetails { userDetails, error in
+                    defer {
+                        dispatchGroup.leave()
+                    }
+                    if let error = error {
+                        print("Error fetching current user details: \(error.localizedDescription)")
+                        return
+                    }
+                    // Configure cell with current user's details
+                    for (index, post) in posts.enumerated() {
+                        if let cell = self.exploreViewScreen.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ExploreTableViewCell {
+                            cell.configure(with: post, at: IndexPath(row: index, section: 0))
+                        }
+                    }
+                }
             }
-
-            completion(posts)
-            print("posts",posts)
+            
+            dispatchGroup.notify(queue: .main) {
+                completion(posts)
+            }
         }
     }
 }
-
-//
-//extension ExploreViewController: UITableViewDataSource,UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return posts.count // Return the number of chat groups
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Unauthpost", for: indexPath) as! TableViewCell
-//        let post = posts[indexPath.row] // Get the chat group for the current row
-//        cell.configure(with: post, at: indexPath) // Configure the cell with the chat group
-//        print("Chat :: ")/Users/shradachellasami/Documents/MAD/iOS_Project/iOS_Team7/iOS_Team7/Feed/FeedViewController.swift
-//        print(post)
-//        return cell
-//    }
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("REACHED select")
-//        print(self.posts[indexPath.row]);
-//        //let chatScreenViewController = ChatScreenViewController(chatID: self.chats[indexPath.row].chatID);
-//             //pushing showProfilController to navigation controller...
-//            // navigationController?.pushViewController(chatScreenViewController, animated: true)
-//    }
-//}
 
 extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

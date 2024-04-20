@@ -258,6 +258,30 @@ class ExploreTableViewCell: UITableViewCell {
         } else {
             imageProfile.image = UIImage(named: "defaultImage")
         }
+        
+        // Check if the post is followed by the current user
+        AuthModel().getCurrentUserDetails { userDetails, error in
+            if let error = error {
+                print("Error fetching current user details: \(error.localizedDescription)")
+                return
+            }
+            
+            let follows = userDetails["follows"] as? [String] ?? []
+            
+            DispatchQueue.main.async {
+                if follows.contains(post.title) {
+                    self.followButton.setTitle("Following", for: .normal)
+                    self.followButton.isEnabled = false // Disable the button
+                    // Optionally, you can update the button's appearance
+                    self.followButton.setTitleColor(.gray, for: .normal)
+                } else {
+                    self.followButton.setTitle("Follow", for: .normal)
+                    self.followButton.isEnabled = true // Enable the button
+                    // Optionally, you can update the button's appearance
+                    self.followButton.setTitleColor(.blue, for: .normal)
+                }
+            }
+        }
     }
 
     private func loadImage(from url: URL) {
