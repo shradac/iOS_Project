@@ -323,7 +323,7 @@ class FeedTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupWrapperCellView()
         setupLabels()
-        setupFollowButton()
+        setupUnfollowButton()
         setupImageProfile()
         initConstraints()
     }
@@ -348,7 +348,7 @@ class FeedTableViewCell: UITableViewCell {
         unfollowButton.setTitle("Unfollow", for: .normal)
         unfollowButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         unfollowButton.translatesAutoresizingMaskIntoConstraints = false
-        wrapperCellView.addSubview(unfollowButton)
+//        wrapperCellView.addSubview(unfollowButton)
 
         labelContent = UILabel()
         labelContent.font = UIFont.systemFont(ofSize: 14)
@@ -376,7 +376,7 @@ class FeedTableViewCell: UITableViewCell {
         wrapperCellView.addSubview(createdByLabel)
     }
 
-    func setupFollowButton() {
+    func setupUnfollowButton() {
         unfollowButton.layer.cornerRadius = 5
         unfollowButton.layer.borderWidth = 1
         unfollowButton.layer.borderColor = UIColor.blue.cgColor
@@ -402,11 +402,11 @@ class FeedTableViewCell: UITableViewCell {
                 labelTitle.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
                 labelTitle.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
 
-                unfollowButton.topAnchor.constraint(equalTo: labelTitle.bottomAnchor, constant: 8),
-                unfollowButton.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-                unfollowButton.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
+//                unfollowButton.topAnchor.constraint(equalTo: labelTitle.bottomAnchor, constant: 8),
+//                unfollowButton.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
+//                unfollowButton.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
 
-                imageProfile.topAnchor.constraint(equalTo: unfollowButton.bottomAnchor, constant: 8),
+                imageProfile.topAnchor.constraint(equalTo: labelTitle.bottomAnchor, constant: 8),
                 imageProfile.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
                 imageProfile.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
                 imageProfile.heightAnchor.constraint(equalToConstant: 200),
